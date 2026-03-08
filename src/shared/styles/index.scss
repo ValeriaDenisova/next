@@ -387,7 +387,7 @@ p {
 // Стили
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: inherit;
   background-color: $background;
   // user-select: none;
   margin-top: 64px;

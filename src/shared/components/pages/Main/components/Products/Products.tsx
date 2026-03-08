@@ -7,7 +7,7 @@ import parse from 'html-react-parser';
 import Card from '@components/Card';
 import Text from '@components/Text';
 import Loader from '@components/Loader';
-import arrayTop from '@components/icons/arrayTop.svg';
+import arrayTop from '@public/icons/arrayTop.svg';
 import { useRecipeStore } from '@store/hooks/globalStores';
 import ScrollStore from '@store/locals/ScrollStore';
 import { smoothScrollTo } from '@utils/utils';
@@ -37,7 +37,7 @@ const Products: React.FC = observer(() => {
   const [isArray, setIsArray] = useState<boolean>(false);
 
   const handleArray = useCallback(() => {
-    smoothScrollTo(500);
+    smoothScrollTo(0);
   }, [resipes]);
 
   useEffect(() => {

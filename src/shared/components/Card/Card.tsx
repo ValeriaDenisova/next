@@ -30,7 +30,7 @@ const Card: React.FC<CardProps> = ({
   return (
     <div className={Class} onClick={onClick}>
       <div className={s.cardImg}>
-        <Image className={s.cardImg__img} src={image} alt=""  width={360} height={348} />
+        <Image className={s.cardImg__img} src={image} alt="" fill sizes="(max-width: 640px) 33vw, (max-width: 1024px) 50vw, 100vw" style={{ objectFit: 'cover' }}/>
       </div>
       <div className={s.cardInfo}>
         {captionSlot && <p className={s.captionSlot}>{captionSlot}</p>}

@@ -34,4 +34,9 @@ export default class UserStore {
   get isError(): boolean {
     return typeof this._rootStore.singInToStore.cleanSingInToError == 'string';
   }
+
+
+  get hasToken(): boolean {
+    return this._rootStore.token !== null;
+  }
 }

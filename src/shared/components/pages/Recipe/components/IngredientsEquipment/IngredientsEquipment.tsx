@@ -3,8 +3,8 @@ import Image from 'next/image';
 import IngredientsEquipmentContainer from './components/IngredientsEquipmentContainer';
 import IngredientsEquipmentElement from './components/IngredientsEquipmentContainer/components/IngredientsEquipmenElement';
 import IngredientsEquipmentSeparator from './components/IngredientsEquipmentSeparator';
-import ingredientsSvg from '@components/icons/ingredients.svg';
-import equipmentSvg from '@components/icons/equipment.svg';
+import ingredientsSvg from '@public/icons/ingredients.svg';
+import equipmentSvg from '@public/icons/equipment.svg';
 import s from './IngredientsEquipment.module.scss';
 
 interface IngredientsEquipmentProps {

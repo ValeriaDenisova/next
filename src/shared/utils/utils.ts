@@ -128,3 +128,16 @@ export function smoothScrollTo(targetTop: number, opts: SmoothScrollOptions = {}
 
   requestAnimationFrame(step);
 }
+
+
+export async function resolveParamsId(params: any): Promise<string> {
+  if (params && typeof (params as any).then === 'function') {
+    const resolved = await (params as Promise<{ id: string }>);
+    return resolved?.id ?? '';
+  }
+  const idRaw = (params as { id?: any }).id;
+  if (Array.isArray(idRaw)) {
+    return idRaw[0] ?? '';
+  }
+  return idRaw ?? '';
+}

@@ -39,3 +39,9 @@
   display: inline-block;
   animation: spin 1s linear infinite;
 }
+
+.notLike{
+  text-align: center;
+  margin-top: 80px;
+  @include fz28;
+}

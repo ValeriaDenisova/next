@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import ApiStore from '@store/globals/ApiStore';
 import UserStore from '@store/globals/UserStore';
 import FavoritesStore from '@store/globals/FavoritesStore';
@@ -7,6 +7,7 @@ import RecipeStore from '@store/globals/RecipeStore';
 import SingInToStore from '@store/globals/SingInToStore';
 import { initStoreContext } from '@utils/initStoreContext';
 import { API_BASE_URL } from '@config/apiConfig';
+import LogInStore from '../LogInStore';
 
 export class RootStore implements IRootStore{
   readonly api: ApiStore;
@@ -15,27 +16,30 @@ export class RootStore implements IRootStore{
   readonly categories: CategoriesStore;
   readonly resipes: RecipeStore;
   readonly singInToStore: SingInToStore;
+  readonly logInStore: LogInStore;
 
   private _token: string | null = null;
 
   constructor() {
     this._token = (typeof window !== 'undefined') ? localStorage.getItem('token') : null;
-
-    // this.api = new ApiStore(API_BASE_URL);
     this.api = new ApiStore(API_BASE_URL, () => this.token);
     this.user = new UserStore(this);
     this.favorites = new FavoritesStore(this);
     this.categories = new CategoriesStore(this);
     this.resipes = new RecipeStore(this);
     this.singInToStore = new SingInToStore(this);
+    this.logInStore = new LogInStore(this);
 
     makeAutoObservable(this);
   }
 
   get token(): string | null {
-    if (this._token) return this._token;
-    if (typeof window !== 'undefined') this._token = localStorage.getItem('token');
+    runInAction(() => {
+      if (this._token) return this._token;
+      if (typeof window !== 'undefined') this._token = localStorage.getItem('token');
+    });
     return this._token;
+
   }
 
   setToken(token: string | null) {

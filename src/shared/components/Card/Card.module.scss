@@ -18,6 +18,7 @@
   overflow: hidden;
   padding: 0px;
   border-radius: $border-radius;
+  position: relative;
 
   @include respondToMedium {
     height: 300px;

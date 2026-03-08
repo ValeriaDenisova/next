@@ -1,21 +1,21 @@
-'use client';
-import Header from "@/shared/components/Header";
 import Recipe from "@components/pages/Recipe";
-import { useParams } from "next/navigation";
+import { resolveParamsId } from '../../../shared/utils/utils';
 import '@styles/index.scss';
 
-export default function RecipePage(){
-    const params = useParams();
-    if (!params) {
-        return null;
-    }
-    const { id } = params;
+// export async function generateMetadata({ params }: { params: { id: string } }) {
+//   return {
+//     title: title,
+//     description: description,
+//     openGraph: {
+//       images: [images],
+//     },
+//   }
+// }
+
+export default async function RecipePage({ params }: { params: { id: string } }){
+    const id = await resolveParamsId(params);
 
     return (
-        <>
-        {/* <Header/> */}
         <Recipe id={id} />
-        </>
-        
     )
 }

@@ -1,4 +1,4 @@
-import { runInAction, makeAutoObservable, toJS, reaction } from 'mobx';
+import { runInAction, makeAutoObservable, toJS, reaction, IReactionDisposer } from 'mobx';
 import { normalizeFavorites, type FavoritesApi, type Favorites } from '@entities/api/Favorites';
 import ApiStore from '../ApiStore';
 import { API_BASE_URL } from '@config/apiConfig';
@@ -12,20 +12,33 @@ export default class FavoritesStore {
 
   private apiWithAuth: ApiStore;
   private _rootStore: IRootStore;
+  private _tokenReaction?: IReactionDisposer;
 
   constructor(root: IRootStore) {
     makeAutoObservable(this);
     this._rootStore = root;
     this.apiWithAuth = new ApiStore(API_BASE_URL, () => this._rootStore.token);
+    this.fetchRecipes(); 
+     this._tokenReaction = reaction(
+      () => this._rootStore.token, 
+      (token) => {
+        if (token) {
+          this.fetchRecipes();
+        }
+      },
+      { fireImmediately: false } 
+    );
   }
 
   async fetchRecipes() {
+    if (!this._rootStore?.token) {
+      return;
+    }
     runInAction(() => {
       this.loading = true;
       this.error = null;
       this.recipes = [];
     });
-
     try {
       const response = await this.apiWithAuth.requestWithAuth<FavoritesApi[]>({
         method: 'GET',
@@ -88,7 +101,6 @@ export default class FavoritesStore {
 
   async fetchDelete(id: ParamValue) {
     runInAction(() => {
-      // this.delete = false;
       this.loading = true;
       this.error = null;
     });
@@ -102,7 +114,6 @@ export default class FavoritesStore {
 
       if (response.success) {
         runInAction(() => {
-          // this.delete = true;
         });
         await this.fetchRecipes();
       } else {

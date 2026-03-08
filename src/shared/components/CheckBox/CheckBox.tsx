@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import CheckIcon from '../Icons/CheckIcon';
+import CheckIcon from '@/shared/components/Icons/CheckIcon';
 import s from './CheckBox.module.scss';
 
 export type CheckBoxProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> & {

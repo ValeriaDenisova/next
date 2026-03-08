@@ -3,9 +3,9 @@ import React from 'react';
 import Image from 'next/image';
 import Text from '@components/Text';
 import Menu from './components/Menu';
-import headerLeftIcon from '@components/icons/header_left.svg';
-import headerRightIcon from '@components/icons/header_right.svg';
-import logo from '@components/icons/logo.svg';
+import headerLeftIcon from '@public/icons/header_left.svg';
+import headerRightIcon from '@public/icons/header_right.svg';
+import logo from '@public/icons/logo.svg';
 import Modal from '@components/Modal';
 import FavoriteRecipes from './components/FavoriteRecipes';
 import SingInTo from './components/SignInTo';
@@ -60,7 +60,7 @@ const Header: React.FC = () => {
         <FavoriteRecipes onFavoriteClose={handleFavoriteClose} />
       </Modal>
 
-      <Modal isModal={isEntrance} onFavoriteClose={handleEntranceClose} title={'Sign in to'}>
+      <Modal isModal={isEntrance} onFavoriteClose={handleEntranceClose} title={'Access Your Account'}>
         {<SingInTo />}
       </Modal>
     </>

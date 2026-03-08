@@ -16,6 +16,7 @@ interface FavoriteRecipesProps {
 const FavoriteRecipes: React.FC<FavoriteRecipesProps> = observer(({ onFavoriteClose }) => {
   const user = useUserStore();
   const favorites = useFavoritesStore();
+
   return (
     <>
       {favorites.cleanLoading && (
@@ -54,6 +55,10 @@ const FavoriteRecipes: React.FC<FavoriteRecipesProps> = observer(({ onFavoriteCl
           })}
         </div>
       )}
+
+        {favorites.cleanRecipes.length === 0 && user.hasToken && (
+          <Text className={s.notLike}>Your favorite recipes will be displayed here.</Text>
+        )}
     </>
   );
 });

@@ -1,9 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
 import RecipeInfoElement from './components/RecipeInfoElement';
-import s from './RecipeInfo.module.scss';
+import s from './RecipesInfo.module.scss';
 
-interface RecipeInfoProps {
+interface RecipesInfoProps {
   cookingTime: number;
   preparationTime: number;
   totalTime: number;
@@ -13,7 +13,7 @@ interface RecipeInfoProps {
   img: string;
 }
 
-const RecipeInfo: React.FC<RecipeInfoProps> = ({
+const RecipesInfo: React.FC<RecipesInfoProps> = ({
   cookingTime,
   preparationTime,
   totalTime,
@@ -25,7 +25,7 @@ const RecipeInfo: React.FC<RecipeInfoProps> = ({
   return (
     <div className={s.recipeInfo}>
       <div className={s.recipeInfo__img}>
-        <Image className={s.img} src={img} alt="" width={448} height={248}/>
+        <Image className={s.img} src={img} alt="" fill sizes="(max-width: 640px) 33vw, (max-width: 1024px) 50vw, 100vw" style={{ objectFit: 'cover' }} priority />
       </div>
       <div className={s.info__container}>
         <div className={s.info}>
@@ -41,4 +41,4 @@ const RecipeInfo: React.FC<RecipeInfoProps> = ({
   );
 };
 
-export default React.memo(RecipeInfo);
+export default React.memo(RecipesInfo);

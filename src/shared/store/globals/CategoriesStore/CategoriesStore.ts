@@ -14,7 +14,6 @@ export default class CategoriesStore {
   constructor(root: IRootStore) {
     makeAutoObservable(this);
     this._rootStore = root;
-    // this.fetchRecipes();
   }
 
   async fetchRecipes() {

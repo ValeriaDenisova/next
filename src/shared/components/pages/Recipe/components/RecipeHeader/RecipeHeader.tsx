@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 import Image from 'next/image';
 import Link from 'next/link';
 import Text from '@components/Text';
-import array from '@components/icons/recipe_header.svg';
+import array from '@public/icons/recipe_header.svg';
 import Button from '@components/Button';
 import { useFavoritesStore, useUserStore } from '@store/hooks/globalStores';
 import RecipeInfoStore from '@store/locals/RecipeInfoStore';
@@ -14,7 +14,7 @@ import s from './RecipeHeader.module.scss';
 interface RecipeHeaderProps {
   loading: boolean;
   info: RecipeInfoStore;
-  id?: ParamValue;
+  id: ParamValue;
 }
 
 const RecipeHeader: React.FC<RecipeHeaderProps> = observer(({ loading, info , id}) => {

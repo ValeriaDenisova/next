@@ -3,19 +3,18 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 import parse from 'html-react-parser';
 import RecipeHeader from './components/RecipeHeader';
-import RecipeInfo from './components/RecipeInfo';
+import RecipesInfo from './components/RecipesInfo';
 import RecipeDescription from './components/RecipeDescription';
 import IngredientsEquipment from './components/IngredientsEquipment';
 import Directions from './components/Directions';
 import Loader from '@components/Loader';
 import RecipeInfoStore from '@store/locals/RecipeInfoStore';
 import { useLocalStore } from '@store/hooks/useLocalStore';
-import { ParamValue } from 'next/dist/server/request/params';
 import s from './Recipe.module.scss';
 
 
 interface RecipeProps {
-  id?: ParamValue;
+  id?: string;
 }
 const Recipe: React.FC<RecipeProps> = observer(({id}) => {
   const info = useLocalStore(() => new RecipeInfoStore(id));
@@ -29,10 +28,10 @@ const Recipe: React.FC<RecipeProps> = observer(({id}) => {
       )}
       {!info.cleanLoading && (
         <div className={s.recipe}>
-          <RecipeHeader loading={info.cleanLoading} info={info} />
+          <RecipeHeader loading={info.cleanLoading} info={info} id={id}/>
           <div className={s.recipe__content}>
             {info.cleanRecipeInfo && (
-              <RecipeInfo
+              <RecipesInfo
                 cookingTime={info.cleanRecipeInfo.cookingTime}
                 preparationTime={info.cleanRecipeInfo.preparationTime}
                 totalTime={info.cleanRecipeInfo.totalTime}

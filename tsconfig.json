@@ -27,7 +27,8 @@
       "@config/*": ["./src/shared/config/*"],
       "@utils/*": ["./src/shared/utils/*"],
       "@styles/*": ["./src/shared/styles/*"],
-      "@providers/*": ["src/shared/providers/*"]
+      "@providers/*": ["src/shared/providers/*"],
+      "@public/*": ["src/public/*"]
     },
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
