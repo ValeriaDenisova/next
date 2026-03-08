@@ -1,0 +1,33 @@
+@use '@styles/mixins' as *;
+
+.search {
+  display: grid;
+  grid-template-columns: 1fr 64px;
+  gap: 19px;
+  margin-bottom: 20px;
+
+  @include respondToExtraSmall {
+    width: 98%;
+    grid-template-columns: 1fr;
+  }
+}
+
+.category {
+  display: flex;
+  justify-content: flex-end;
+
+  @include respondToExtraSmall {
+    display: block;
+  }
+}
+
+.filter {
+  @include respondTo250 {
+    display: none;
+  }
+}
+
+.categoriesFilter__slot {
+  display: flex;
+  gap: 10px;
+}

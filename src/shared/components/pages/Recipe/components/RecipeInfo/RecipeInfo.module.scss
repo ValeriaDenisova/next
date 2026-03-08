@@ -1,0 +1,61 @@
+@use '@styles/variables.scss' as *;
+@use '@styles/mixins' as *;
+
+.recipeInfo {
+  @include displayFlexAlignCenter;
+  gap: 3px;
+
+  @include respondToSmall {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+.recipeInfo__img {
+  width: 448px;
+  height: 298px;
+  border-radius: $border-radius;
+
+  @include respondToMedium {
+    width: 48%;
+  }
+
+  @include respondToSmall {
+    width: 100%;
+  }
+}
+.img {
+  @include positionImg;
+  border-radius: $border-radius;
+}
+
+.info {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  row-gap: 50px;
+  column-gap: 100px;
+
+  @include respondToMedium {
+    column-gap: 40px;
+  }
+
+  @include respondToSmall {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @include respondToExtraSmall {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @include respondTo250 {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}
+
+.info__container {
+  @include displayFlexAlignCenterJCcenter;
+  flex: 1;
+}

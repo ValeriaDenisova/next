@@ -1,0 +1,34 @@
+@use '@styles/mixins' as *;
+.mainHeader {
+  width: 100%;
+  height: 572px;
+  background-color: rgb(202, 123, 123);
+  position: relative;
+
+  @include respondToSmall {
+    height: 400px;
+  }
+
+  @include respondToExtraSmall {
+    height: 200px;
+  }
+}
+
+.title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 20px;
+}
+
+.mainHeader__img {
+  @include positionImg;
+}
+
+.title__svg {
+  @include respondToExtraSmall {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+}

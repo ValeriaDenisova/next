@@ -1,0 +1,49 @@
+@use '@styles/variables.scss' as *;
+@use '@styles/mixins' as *;
+
+.resipeHeader__left {
+  @include displayFlexAlignCenter;
+  gap: 16px;
+  margin-bottom: 37px;
+  @include respondToSmall {
+    margin-bottom: 20px;
+  }
+}
+
+.resipeHeader {
+  display: flex;
+  justify-content: space-between;
+  @include respondToSmall {
+    display: block;
+    margin-bottom: 37px;
+  }
+}
+
+.resipeHeader__button {
+  width: 190px;
+  @include respondToSmall {
+    width: 100%;
+  }
+}
+
+.title {
+  @include normal700;
+  @include fz44;
+  color: $color-black;
+
+  @include respondToMedium {
+    @include fz32;
+  }
+
+  @include respondToExtraSmall {
+    @include fz28;
+  }
+
+  @include respondTo250 {
+    @include fz20;
+  }
+}
+
+.back {
+  @include respondToNone155;
+}

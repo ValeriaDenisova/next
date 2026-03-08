@@ -1,0 +1,39 @@
+@use '@styles/variables.scss' as *;
+@use '@styles/mixins' as *;
+
+.pagination {
+  @include displayFlexAlignCenterJCcenter;
+  gap: 15px;
+
+  @include respondTo390 {
+    gap: 0px;
+  }
+
+  @include respondTo320 {
+    gap: 5px;
+  }
+}
+
+.pagination__number {
+  display: flex;
+}
+
+.numberPages {
+  @include paginationNumber;
+
+  color: $color-black;
+
+  @include respondTo320 {
+    display: none;
+  }
+}
+
+.active {
+  @include paginationNumber;
+
+  background: $default-color;
+  color: $background-white;
+  flex: none;
+  order: 0;
+  flex-grow: 1;
+}

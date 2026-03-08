@@ -1,0 +1,22 @@
+@use '@styles/variables.scss' as *;
+@use '@styles/mixins' as *;
+
+.separatop {
+  @include displayFlexAlignCenterColumn;
+  gap: 4px;
+  margin-right: 49px;
+
+  @include respondToNoneSmall;
+}
+
+.circle {
+  border-radius: 50%;
+  width: 7px;
+  height: 7px;
+  background: $default-color;
+}
+
+.line {
+  border: 1px solid $default-color;
+  flex: 1;
+}

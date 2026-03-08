@@ -1,0 +1,56 @@
+@use '@styles/variables.scss' as *;
+
+.container {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  pointer-events: none;
+  display: none;
+}
+
+.customCheckmark {
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  background: $background-white;
+  border: 1px solid $background-white;
+  border-radius: $border-radius;
+}
+
+.disabledSpan {
+  background: $background-white;
+  opacity: 0.5;
+}
+
+.container:hover .hover {
+  border: 1px solid $default-color;
+}
+
+.notDisabled {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+}
+
+.disabled {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  opacity: 0.4;
+}

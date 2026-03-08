@@ -1,0 +1,40 @@
+@use '@styles/variables.scss' as *;
+@use '@styles/mixins' as *;
+
+.menu__li {
+  @include normal400-fz16;
+  color: $color-black;
+}
+
+.menu_li_active {
+  color: $default-color;
+}
+
+.menu {
+  display: flex;
+  gap: 16px;
+
+  @include respondToMedium {
+    gap: 10px;
+  }
+
+  @include respondToNoneSmall;
+}
+
+.menu__mobile {
+  @include respondToSmall {
+    background-color: $color-header-menu;
+    position: fixed;
+    width: 100vw;
+    top: 64px;
+    left: 0px;
+    padding-bottom: 40px;
+    gap: 20px;
+  }
+}
+
+.menu__open {
+  @include respondToSmall {
+    @include flexColumnCenter;
+  }
+}

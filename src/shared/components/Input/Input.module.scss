@@ -1,0 +1,54 @@
+@use '@styles/variables.scss' as *;
+@use '@styles/mixins' as *;
+
+.container {
+  @include displayFlexAlignCenter;
+  border-radius: 4px;
+  width: fit-content;
+  box-sizing: border-box;
+  padding: 14px 12px;
+  gap: 8px;
+  width: 350px;
+  height: 52px;
+  background: $background-white;
+  border: 1px solid $background-white;
+  border-radius: $border-radius;
+
+  @include respondToFullWidthSmall;
+}
+
+.input {
+  border: none;
+  outline: none;
+  flex: 1;
+  width: 100%;
+  @include normal400-fz16;
+  color: $color-black;
+}
+
+input::placeholder {
+  @include normal400-fz16;
+  color: $color-placeholder;
+}
+
+.slot {
+  margin-left: 8px;
+
+  @include respondToNoneExtraSmall;
+}
+
+.container__disabled {
+  width: 368px;
+}
+
+.container__input:disabled {
+  @include normal400-fz16;
+  color: rgba(0, 0, 0, 0.2);
+  background: $background-white;
+  border: 1px solid $background-white;
+}
+
+.container:focus-within {
+  background: $background-white;
+  border: 1px solid $default-color;
+}
