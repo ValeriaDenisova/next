@@ -1,6 +1,6 @@
-import React from 'react';
-import Text from '@components/Text';
-import s from './Modal.module.scss';
+import React from "react";
+import Text from "@components/Text";
+import s from "./Modal.module.scss";
 
 interface modalProps {
   isModal: boolean;

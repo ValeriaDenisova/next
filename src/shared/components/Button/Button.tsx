@@ -1,7 +1,7 @@
-import React from 'react';
-import classNames from 'classnames';
-import Loader from '../Loader';
-import s from './Button.module.scss';
+import React from "react";
+import classNames from "classnames";
+import Loader from "../Loader";
+import s from "./Button.module.scss";
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   loading?: boolean;
@@ -23,15 +23,12 @@ const Button: React.FC<ButtonProps> = ({
       : classNames(s.button, s.button__disabled, s.button__hover, className);
 
   const isDisabled = disabled || loading;
+  const isLoadingSearch = loading || search;
 
   return (
     <button
-      className={buttonClass}
+      className={`${buttonClass} ${isLoadingSearch ? s.button__padded : ""}`}
       disabled={isDisabled}
-      style={{
-        paddingTop: loading || search ? '14px' : undefined,
-        paddingBottom: loading || search ? '14px' : undefined,
-      }}
       {...rest}
     >
       {loading && <Loader size="s" color="#ffffff" />}

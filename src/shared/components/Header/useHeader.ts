@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback } from "react";
 
 export function useHeader() {
   const [isMenuOpen, setMenuOpen] = useState<boolean>(false);

@@ -1,2 +1,2 @@
-export { default } from './TextTitle';
-export * from './TextTitle';
+export { default } from "./TextTitle";
+export * from "./TextTitle";

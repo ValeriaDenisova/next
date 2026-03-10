@@ -1,2 +1,2 @@
-export { default } from './Recipe';
-export * from './Recipe';
+export { default } from "./Recipe";
+export * from "./Recipe";

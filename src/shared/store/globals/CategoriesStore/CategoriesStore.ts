@@ -1,8 +1,6 @@
-import { makeAutoObservable, runInAction, toJS } from 'mobx';
-import { normalizeCategories, type CategoriesApi, type Categories } from '@entities/api/Categories';
-import type { IRootStore } from '../root/RootStore';
-import { normalizeRecipe, type Recipe } from '@entities/api/Recipe';
-import { Option } from '@components/MultiDropdown';
+import { makeAutoObservable, runInAction, toJS } from "mobx";
+import { normalizeCategories, type CategoriesApi, type Categories } from "@entities/api/Categories";
+import type { IRootStore } from "../root/RootStore";
 
 export default class CategoriesStore {
   categories: CategoriesApi[] = [];
@@ -24,8 +22,10 @@ export default class CategoriesStore {
     });
 
     try {
-      const response = await this._rootStore.api.request<{ data: CategoriesApi[] }>({
-        method: 'GET',
+      const response = await this._rootStore.api.request<{
+        data: CategoriesApi[];
+      }>({
+        method: "GET",
         endpoint: `/meal-categories`,
         headers: {},
         data: {},
@@ -42,7 +42,7 @@ export default class CategoriesStore {
       }
     } catch {
       runInAction(() => {
-        this.error = 'Ошибка при получении рецептов';
+        this.error = "Ошибка при получении рецептов";
       });
     } finally {
       runInAction(() => {
@@ -51,55 +51,10 @@ export default class CategoriesStore {
     }
   }
 
-  async loadCategoriesAndRecipes(params: {
-    page?: number;
-    pageSize?: number;
-    search?: string;
-    categoryFilters?: Option[]; 
-  }){
-    let recipes: Recipe[] = [];
-    try {
-    const [catRes, recRes] = await Promise.all([
-      this._rootStore.api.request<{ data: any[] }>({
-        method: 'GET',
-        endpoint: '/meal-categories',
-        data: {}
-      }),
-      this._rootStore.api.request<{ data: any[]; meta?: any }>({
-        method: 'GET',
-        endpoint: '/recipes',
-        data: {
-          pagination: { page: params.page ?? 1, pageSize: params.pageSize ?? 9 },
-          populate: 'images',
-          filters: {
-            category: { id: { $in: params.categoryFilters ?? [] } },
-            name: { $containsi: params.search ?? '' }
-          }
-        }
-      })
-    ]);
-  
-    runInAction(() => {
-    if (catRes.success) {
-        this.categories = normalizeCategories(catRes.data.data);
-      } else {
-        this.error = 'Не удалось загрузить категории';
-      }
-
-    if (recRes.success) {
-      recipes = normalizeRecipe(recRes.data.data ?? recRes.data);
-      } else {
-        this.error = (this.error ? this.error + ' | ' : '') + 'Не удалось загрузить рецепты';
-      }
-          });
-    } catch {
-      this.error = 'Сеть или парсинг недоступны';
-    } finally {
-      this.loading = false;
-    }
-
-    return recipes;
-}
+  hydrate(categories: CategoriesApi[]) {
+    this.categories = categories;
+    this.loading = false;
+  }
 
   get cleanCategories(): Categories[] {
     return toJS(this.categories);

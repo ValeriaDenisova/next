@@ -1,9 +1,9 @@
-import { runInAction, makeAutoObservable, toJS, reaction, IReactionDisposer } from 'mobx';
-import { normalizeFavorites, type FavoritesApi, type Favorites } from '@entities/api/Favorites';
-import ApiStore from '../ApiStore';
-import { API_BASE_URL } from '@config/apiConfig';
-import { ParamValue } from 'next/dist/server/request/params';
-import type { IRootStore } from '../root/RootStore';
+import { runInAction, makeAutoObservable, toJS, reaction, IReactionDisposer } from "mobx";
+import { normalizeFavorites, type FavoritesApi, type Favorites } from "@entities/api/Favorites";
+import ApiStore from "../ApiStore";
+import { API_BASE_URL } from "@config/apiConfig";
+import { ParamValue } from "next/dist/server/request/params";
+import type { IRootStore } from "../root/RootStore";
 
 export default class FavoritesStore {
   recipes: Favorites[] = [];
@@ -18,15 +18,15 @@ export default class FavoritesStore {
     makeAutoObservable(this);
     this._rootStore = root;
     this.apiWithAuth = new ApiStore(API_BASE_URL, () => this._rootStore.token);
-    this.fetchRecipes(); 
-     this._tokenReaction = reaction(
-      () => this._rootStore.token, 
+    this.fetchRecipes();
+    this._tokenReaction = reaction(
+      () => this._rootStore.token,
       (token) => {
         if (token) {
           this.fetchRecipes();
         }
       },
-      { fireImmediately: false } 
+      { fireImmediately: false },
     );
   }
 
@@ -41,8 +41,8 @@ export default class FavoritesStore {
     });
     try {
       const response = await this.apiWithAuth.requestWithAuth<FavoritesApi[]>({
-        method: 'GET',
-        endpoint: '/favorites',
+        method: "GET",
+        endpoint: "/favorites",
         data: {},
       });
 
@@ -57,7 +57,7 @@ export default class FavoritesStore {
       }
     } catch {
       runInAction(() => {
-        this.error = 'Ошибка при получении рецептов';
+        this.error = "Ошибка при получении рецептов";
       });
     } finally {
       runInAction(() => {
@@ -74,14 +74,13 @@ export default class FavoritesStore {
 
     try {
       const response = await this.apiWithAuth.requestWithAuth<unknown>({
-        method: 'POST',
+        method: "POST",
         endpoint: `/favorites/add`,
         data: { recipe: id },
       });
 
       if (response.success) {
-        runInAction(() => {
-        });
+        runInAction(() => {});
         await this.fetchRecipes();
       } else {
         runInAction(() => {
@@ -90,7 +89,7 @@ export default class FavoritesStore {
       }
     } catch {
       runInAction(() => {
-        this.error = 'Ошибка при добавлении любимого рецепта';
+        this.error = "Ошибка при добавлении любимого рецепта";
       });
     } finally {
       runInAction(() => {
@@ -107,14 +106,13 @@ export default class FavoritesStore {
 
     try {
       const response = await this.apiWithAuth.requestWithAuth<unknown>({
-        method: 'POST',
+        method: "POST",
         endpoint: `/favorites/remove`,
         data: { recipe: id },
       });
 
       if (response.success) {
-        runInAction(() => {
-        });
+        runInAction(() => {});
         await this.fetchRecipes();
       } else {
         runInAction(() => {
@@ -123,7 +121,7 @@ export default class FavoritesStore {
       }
     } catch {
       runInAction(() => {
-        this.error = 'Ошибка при удалении любимого рецепта';
+        this.error = "Ошибка при удалении любимого рецепта";
       });
     } finally {
       runInAction(() => {
@@ -140,4 +138,3 @@ export default class FavoritesStore {
     return this.loading;
   }
 }
-

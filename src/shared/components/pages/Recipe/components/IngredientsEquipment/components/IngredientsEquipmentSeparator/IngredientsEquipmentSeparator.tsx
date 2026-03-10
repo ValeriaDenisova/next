@@ -1,5 +1,5 @@
-import React from 'react';
-import s from './IngredientsEquipmentSeparator.module.scss';
+import React from "react";
+import s from "./IngredientsEquipmentSeparator.module.scss";
 
 const IngredientsEquipmentSeparator: React.FC = () => {
   return (

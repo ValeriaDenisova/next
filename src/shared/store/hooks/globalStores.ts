@@ -1,4 +1,4 @@
-import { useRootStore } from '@store/globals/root/RootStore';
+import { useRootStore } from "@store/globals/root/RootStore";
 
 export const useUserStore = () => useRootStore().user;
 export const useFavoritesStore = () => useRootStore().favorites;

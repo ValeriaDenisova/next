@@ -1,15 +1,27 @@
-import React from 'react';
-import MainHeader from './components/MainHeader';
-import Recipes from './components/Recipes';
-import s from './Main.module.scss';
+import React from "react";
+import MainHeader from "./components/MainHeader";
+import Recipes from "./components/Recipes";
+import { Recipe } from "@entities/api/Recipe";
+import { Categories } from "@entities/api/Categories";
+import s from "./Main.module.scss";
 
-const Main: React.FC = () => {
+interface MainProps {
+  initialRecipes: Recipe[];
+  initialTotal: number;
+  initialCategories: Categories[];
+}
+
+const Main: React.FC<MainProps> = ({ initialRecipes, initialTotal, initialCategories }) => {
   return (
     <>
       <MainHeader />
       <div className="wrapper">
         <div className={s.main}>
-          <Recipes />
+          <Recipes
+            initialRecipes={initialRecipes}
+            initialTotal={initialTotal}
+            initialCategories={initialCategories}
+          />
         </div>
       </div>
     </>

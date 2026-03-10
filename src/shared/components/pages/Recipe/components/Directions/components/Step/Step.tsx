@@ -1,6 +1,6 @@
-import React from 'react';
-import Text from '@components/Text';
-import s from './Step.module.scss';
+import React from "react";
+import Text from "@components/Text";
+import s from "./Step.module.scss";
 
 interface StepProps {
   number: string;

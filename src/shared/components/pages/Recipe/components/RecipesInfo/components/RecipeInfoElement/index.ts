@@ -1,2 +1,2 @@
-export { default } from './RecipeInfoElement';
-export * from './RecipeInfoElement';
+export { default } from "./RecipeInfoElement";
+export * from "./RecipeInfoElement";

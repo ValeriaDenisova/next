@@ -1,7 +1,7 @@
-'use client'
-import React, { useState, useRef, useEffect, useCallback } from 'react';
-import Input from '../Input';
-import s from './MultiDropdown.module.scss';
+"use client";
+import React, { useState, useRef, useEffect, useCallback } from "react";
+import Input from "../Input";
+import s from "./MultiDropdown.module.scss";
 
 export type Option = {
   key: string | number;
@@ -39,7 +39,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
       }
       onOpenCategory(value);
     },
-    [disabled, onOpenCategory]
+    [disabled, onOpenCategory],
   );
 
   const [selected, setSelected] = useState<Option[]>(value);
@@ -68,7 +68,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
         return newSelected;
       });
     },
-    [options]
+    [options],
   );
 
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -81,35 +81,35 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
         toggleDropdown(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
-  const [filterText, setFilterText] = useState<string>('');
+  const [filterText, setFilterText] = useState<string>("");
   const [isInputFocused, setIsInputFocused] = useState<boolean>(false);
 
   const handleChange = useCallback(
     (value: string) => {
       setFilterText(value);
     },
-    [setFilterText]
+    [setFilterText],
   );
 
   const filteredOptions =
-    filterText.trim() === ''
+    filterText.trim() === ""
       ? options
       : options.filter((option) => option.value.toLowerCase().includes(filterText.toLowerCase()));
 
   return (
     <div className={`${className} ${s.multiDropdown}`} ref={containerRef}>
       <Input
-        value={isInputFocused || selected.length === 0 ? '' : getTitle(selected)}
+        value={isInputFocused || selected.length === 0 ? "" : getTitle(selected)}
         onFocus={() => setIsInputFocused(true)}
         onBlur={() => {
           setIsInputFocused(false);
-          setFilterText('');
+          setFilterText("");
         }}
         onChange={handleChange}
         onClick={() => toggleDropdown(true)}
@@ -125,7 +125,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
             <p
               key={option.key}
               className={`${s.options__element} 
-            ${selected.some((selectedOption) => selectedOption.key === option.key) ? s.option__active : ''}`}
+            ${selected.some((selectedOption) => selectedOption.key === option.key) ? s.option__active : ""}`}
               onClick={() => handleClickOption(option.key)}
             >
               {option.value}

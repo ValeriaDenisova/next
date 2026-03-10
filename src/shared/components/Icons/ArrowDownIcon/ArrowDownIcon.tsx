@@ -1,10 +1,10 @@
-import * as React from 'react';
-import type { IconProps } from '../type';
+import * as React from "react";
+import type { IconProps } from "../type";
 
 const colorMap = {
-  primary: '#000',
-  secondary: '#bebbc1',
-  accent: '#B5460F',
+  primary: "#000",
+  secondary: "#bebbc1",
+  accent: "#B5460F",
 };
 
 const ArrowDownIcon: React.FC<IconProps> = ({
@@ -15,7 +15,7 @@ const ArrowDownIcon: React.FC<IconProps> = ({
   style,
   ...props
 }) => {
-  const fillColor = color ? colorMap[color] : '#000';
+  const fillColor = color ? colorMap[color] : "#000";
   return (
     <svg
       className={className}

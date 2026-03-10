@@ -1,6 +1,6 @@
-import React from 'react';
-import Text from '@components/Text';
-import s from './RecipeInfoElement.module.scss';
+import React from "react";
+import Text from "@components/Text";
+import s from "./RecipeInfoElement.module.scss";
 
 interface RecipeInfoElementProps {
   title: string;

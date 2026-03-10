@@ -1,2 +1,2 @@
-export { default } from './SinglnToStore';
-export * from './SinglnToStore';
+export { default } from "./SinglnToStore";
+export * from "./SinglnToStore";

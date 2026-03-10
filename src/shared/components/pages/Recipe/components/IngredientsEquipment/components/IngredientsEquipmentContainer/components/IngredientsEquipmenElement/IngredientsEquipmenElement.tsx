@@ -1,6 +1,6 @@
-import React from 'react';
-import Text from '@components/Text';
-import s from './IngredientsEquipmenElement.module.scss';
+import React from "react";
+import Text from "@components/Text";
+import s from "./IngredientsEquipmenElement.module.scss";
 
 interface IngredientsEquipmentElementProps {
   svg: React.ReactNode;

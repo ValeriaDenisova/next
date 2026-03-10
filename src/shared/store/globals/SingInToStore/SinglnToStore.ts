@@ -1,11 +1,11 @@
-import { makeAutoObservable, runInAction, toJS } from 'mobx';
+import { makeAutoObservable, runInAction, toJS } from "mobx";
 import {
   normalizeSingInTo,
   type SingInToApi,
   type SingInToHead,
   type SingInTo,
-} from '@entities/api/SingInTo';
-import type { IRootStore } from '../root/RootStore';
+} from "@entities/api/SingInTo";
+import type { IRootStore } from "../root/RootStore";
 
 export default class SingInToStore {
   data: SingInTo | null = null;
@@ -28,8 +28,8 @@ export default class SingInToStore {
 
     try {
       const response = await this._rootStore.api.request<SingInToApi>({
-        method: 'POST',
-        endpoint: '/auth/local',
+        method: "POST",
+        endpoint: "/auth/local",
         headers: {},
         data: head,
       });
@@ -45,7 +45,7 @@ export default class SingInToStore {
       }
     } catch {
       runInAction(() => {
-        this.error = 'Ошибка при авторизации';
+        this.error = "Ошибка при авторизации";
       });
     } finally {
       runInAction(() => {

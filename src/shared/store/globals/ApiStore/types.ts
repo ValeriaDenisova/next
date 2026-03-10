@@ -1,6 +1,6 @@
 export const HTTPMethod = {
-  GET: 'GET',
-  POST: 'POST',
+  GET: "GET",
+  POST: "POST",
 } as const;
 export type HTTPMethod = (typeof HTTPMethod)[keyof typeof HTTPMethod];
 
@@ -46,6 +46,6 @@ export type ApiResponse<SuccessT, ErrorT> =
 export interface IApiStore {
   readonly baseUrl: string;
   request<SuccessT, ErrorT = unknown, ReqT = Record<string, unknown>>(
-    params: RequestParams<ReqT>
+    params: RequestParams<ReqT>,
   ): Promise<ApiResponse<SuccessT, ErrorT>>;
 }

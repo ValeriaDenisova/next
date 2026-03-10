@@ -1,6 +1,6 @@
-import React from 'react';
-import TextTitle from '@components/TextTitle';
-import s from './IngredientsEquipmentContainer.module.scss';
+import React from "react";
+import TextTitle from "@components/TextTitle";
+import s from "./IngredientsEquipmentContainer.module.scss";
 
 interface IngredientsEquipmentContainerProps {
   title: string;

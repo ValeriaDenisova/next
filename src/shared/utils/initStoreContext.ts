@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export const initStoreContext = <T>(storeCreator: () => T, storeName: string) => {
   const store = storeCreator();

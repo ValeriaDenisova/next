@@ -1,5 +1,5 @@
-import { runInAction, makeAutoObservable } from 'mobx';
-import type { IRootStore } from '../root/RootStore';
+import { runInAction, makeAutoObservable } from "mobx";
+import type { IRootStore } from "../root/RootStore";
 
 export default class UserStore {
   username: string | undefined = undefined;
@@ -12,7 +12,10 @@ export default class UserStore {
   }
 
   async entrance(login?: string, password?: string) {
-    await this._rootStore.singInToStore.fetchRecipes({ identifier: login, password });
+    await this._rootStore.singInToStore.fetchRecipes({
+      identifier: login,
+      password,
+    });
     runInAction(() => {
       const user = this._rootStore.singInToStore.cleanSingInToUser;
       const token = user?.jwt ?? null;
@@ -26,15 +29,13 @@ export default class UserStore {
     this.username = undefined;
   };
 
-
   get userName(): string | undefined {
     return this.username;
   }
 
   get isError(): boolean {
-    return typeof this._rootStore.singInToStore.cleanSingInToError == 'string';
+    return typeof this._rootStore.singInToStore.cleanSingInToError == "string";
   }
-
 
   get hasToken(): boolean {
     return this._rootStore.token !== null;

@@ -1,9 +1,9 @@
-import React from 'react';
-import Image from 'next/image';
-import classNames from 'classnames';
-import Button from '../Button';
-import Text from '../Text';
-import s from './Card.module.scss';
+import React from "react";
+import Image from "next/image";
+import classNames from "classnames";
+import Button from "../Button";
+import Text from "../Text";
+import s from "./Card.module.scss";
 
 export type CardProps = {
   className?: string;
@@ -30,7 +30,14 @@ const Card: React.FC<CardProps> = ({
   return (
     <div className={Class} onClick={onClick}>
       <div className={s.cardImg}>
-        <Image className={s.cardImg__img} src={image} alt="" fill sizes="(max-width: 640px) 33vw, (max-width: 1024px) 50vw, 100vw" style={{ objectFit: 'cover' }}/>
+        <Image
+          className={s.cardImg__img}
+          src={image}
+          alt=""
+          fill
+          sizes="(max-width: 640px) 33vw, (max-width: 1024px) 50vw, 100vw"
+          style={{ objectFit: "cover" }}
+        />
       </div>
       <div className={s.cardInfo}>
         {captionSlot && <p className={s.captionSlot}>{captionSlot}</p>}

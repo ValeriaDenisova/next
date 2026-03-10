@@ -1,2 +1,2 @@
-export { default } from './IngredientsEquipmentSeparator';
-export * from './IngredientsEquipmentSeparator';
+export { default } from "./IngredientsEquipmentSeparator";
+export * from "./IngredientsEquipmentSeparator";

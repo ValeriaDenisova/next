@@ -1,1 +1,1 @@
-export { default } from './ScrollStore';
+export { default } from "./ScrollStore";

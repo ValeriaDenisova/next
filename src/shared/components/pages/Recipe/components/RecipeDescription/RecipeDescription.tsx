@@ -1,5 +1,5 @@
-import React from 'react';
-import s from './RecipeDescription.module.scss';
+import React from "react";
+import s from "./RecipeDescription.module.scss";
 
 interface RecipeDescriptionProps {
   text: React.ReactNode;

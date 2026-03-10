@@ -1,7 +1,7 @@
-import { stringify } from 'qs';
-import { HTTPMethod, StatusHTTP } from './types';
-import type { ApiResponse, IApiStore, RequestParams } from './types';
-import { makeAutoObservable, runInAction } from 'mobx';
+import { stringify } from "qs";
+import { HTTPMethod, StatusHTTP } from "./types";
+import type { ApiResponse, IApiStore, RequestParams } from "./types";
+import { makeAutoObservable, runInAction } from "mobx";
 
 type TokenProvider = () => string | null;
 
@@ -24,7 +24,7 @@ export default class ApiStore implements IApiStore {
     const merged = { ...(headers || {}) };
     const token = this.getToken?.();
     if (token) {
-      merged['Authorization'] = `Bearer ${token}`;
+      merged["Authorization"] = `Bearer ${token}`;
     }
     return merged;
   }
@@ -44,7 +44,7 @@ export default class ApiStore implements IApiStore {
     if (params.method === HTTPMethod.POST) {
       options.headers = {
         ...options.headers,
-        'Content-Type': 'application/json;charset=utf-8',
+        "Content-Type": "application/json;charset=utf-8",
       };
       options.body = JSON.stringify(params.data);
     }
@@ -66,7 +66,7 @@ export default class ApiStore implements IApiStore {
     if (params.method === HTTPMethod.POST) {
       options.headers = {
         ...options.headers,
-        'Content-Type': 'application/json;charset=utf-8',
+        "Content-Type": "application/json;charset=utf-8",
       };
       options.body = JSON.stringify(params.data);
     }
@@ -75,7 +75,7 @@ export default class ApiStore implements IApiStore {
   }
 
   async request<SuccessT, ErrorT = unknown, ReqT = Record<string, unknown>>(
-    params: RequestParams<ReqT>
+    params: RequestParams<ReqT>,
   ): Promise<ApiResponse<SuccessT, ErrorT>> {
     this.loading = true;
     this.error = null;
@@ -98,7 +98,7 @@ export default class ApiStore implements IApiStore {
     } catch {
       runInAction(() => {
         this.loading = false;
-        this.error = 'Network or parsing error';
+        this.error = "Network or parsing error";
         this.status = StatusHTTP.UNEXPECTED_ERROR;
         this.data = null;
       });
@@ -111,7 +111,7 @@ export default class ApiStore implements IApiStore {
   }
 
   async requestWithAuth<SuccessT, ErrorT = unknown, ReqT = Record<string, unknown>>(
-    params: RequestParams<ReqT>
+    params: RequestParams<ReqT>,
   ): Promise<ApiResponse<SuccessT, ErrorT>> {
     this.loading = true;
     this.error = null;
@@ -134,7 +134,7 @@ export default class ApiStore implements IApiStore {
     } catch {
       runInAction(() => {
         this.loading = false;
-        this.error = 'Network or parsing error';
+        this.error = "Network or parsing error";
         this.status = StatusHTTP.UNEXPECTED_ERROR;
         this.data = null;
       });
@@ -153,4 +153,3 @@ export default class ApiStore implements IApiStore {
     this.status = null;
   }
 }
-

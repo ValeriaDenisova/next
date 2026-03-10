@@ -1,16 +1,16 @@
-import React from 'react';
+import React from "react";
 
 export type LoaderProps = {
-  size?: 's' | 'm' | 'l';
+  size?: "s" | "m" | "l";
   className?: string;
   color?: string;
 };
 
 const Loader: React.FC<LoaderProps> = ({ size, className, color }) => {
-  const colorName = color ? color : '#B5460F';
+  const colorName = color ? color : "#B5460F";
   return (
     <div className={className}>
-      {size === 'l' ||
+      {size === "l" ||
         (size === undefined && (
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +26,7 @@ const Loader: React.FC<LoaderProps> = ({ size, className, color }) => {
           </svg>
         ))}
 
-      {size === 'm' && (
+      {size === "m" && (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="48"
@@ -41,7 +41,7 @@ const Loader: React.FC<LoaderProps> = ({ size, className, color }) => {
         </svg>
       )}
 
-      {size === 's' && (
+      {size === "s" && (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"

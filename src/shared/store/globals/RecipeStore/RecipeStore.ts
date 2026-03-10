@@ -1,7 +1,7 @@
-import { makeAutoObservable, toJS, runInAction, reaction } from 'mobx';
-import { normalizeRecipe, type RecipeApi, type Recipe } from '@entities/api/Recipe';
-import type { IRootStore } from '../root/RootStore';
-import type { Option } from '@components/MultiDropdown/MultiDropdown';
+import { makeAutoObservable, toJS, runInAction, reaction } from "mobx";
+import { normalizeRecipe, type RecipeApi, type Recipe } from "@entities/api/Recipe";
+import type { IRootStore } from "../root/RootStore";
+import type { Option } from "@components/MultiDropdown/MultiDropdown";
 
 const PAGE_SIZE = 9;
 
@@ -14,15 +14,14 @@ export default class RecipeStore {
   pageSize: number = PAGE_SIZE;
   filtersCategory: Option[] = [];
   filtersCategoryParam: (string | number)[] = [];
-  search: string = '';
+  search: string = "";
   loadedTotal: number | undefined;
 
   private _rootStore: IRootStore;
 
-  constructor(root: IRootStore ) {
+  constructor(root: IRootStore) {
     makeAutoObservable(this);
     this._rootStore = root;
-
 
     reaction(
       () => this.totalPage,
@@ -30,53 +29,49 @@ export default class RecipeStore {
         if (total && total > 0) {
           this.loadedTotal = total;
         }
-      }
+      },
     );
 
-    this.initLoadAll();
-
-      reaction(
-     
+    reaction(
       () => this._depsKey,
       () => {
-        if (typeof window === 'undefined') return;
+        if (typeof window === "undefined") return;
         this.fetchRecipes();
       },
-      { fireImmediately: false }
+      { fireImmediately: false },
     );
 
     reaction(
       () => this.filtersCategoryParam,
       () => {
         this.pageSize = PAGE_SIZE;
-      }
+      },
     );
 
     reaction(
       () => this.search,
       () => {
         this.pageSize = PAGE_SIZE;
-      }
+      },
     );
   }
 
   initializeFromUrlParams(searchParams: URLSearchParams) {
-    const searchParam = searchParams.get('search');
+    const searchParam = searchParams.get("search");
     if (searchParam) {
       this.search = searchParam;
     }
-    const categoriesJSON = searchParams.get('category');
+    const categoriesJSON = searchParams.get("category");
     if (categoriesJSON) {
       try {
         const categoriesFromUrl = JSON.parse(decodeURIComponent(categoriesJSON));
         this.filtersCategory = categoriesFromUrl;
         this.handleFiltersCategory();
       } catch (e) {
-        console.error('Ошибка при разборе категорий из URL', e);
+        console.error("Ошибка при разборе категорий из URL", e);
       }
     }
   }
-
 
   async fetchRecipes() {
     runInAction(() => {
@@ -91,12 +86,12 @@ export default class RecipeStore {
         data: RecipeApi[];
         meta: { pagination: { total: number } };
       }>({
-        method: 'GET',
-        endpoint: '/recipes',
+        method: "GET",
+        endpoint: "/recipes",
         headers: {},
         data: {
           pagination: { page: this.page, pageSize: this.pageSize },
-          populate: 'images',
+          populate: "images",
           filters: {
             category: {
               id: {
@@ -122,13 +117,20 @@ export default class RecipeStore {
       }
     } catch {
       runInAction(() => {
-        this.error = 'Ошибка при получении рецептов';
+        this.error = "Ошибка при получении рецептов";
       });
     } finally {
       runInAction(() => {
         this.loading = false;
       });
     }
+  }
+
+  hydrate(recipes: Recipe[], total: number) {
+    this.recipes = recipes;
+    this.totalPage = total;
+    this.loadedTotal = total;
+    this.loading = false;
   }
 
   get cleanRecipes(): Recipe[] {
@@ -183,15 +185,15 @@ export default class RecipeStore {
   }
 
   paramSearch = () => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
       if (this.getSearch) {
-        params.set('search', this.getSearch);
+        params.set("search", this.getSearch);
       } else {
-        params.delete('search');
+        params.delete("search");
       }
       const newUrl = `${window.location.pathname}?${params.toString()}`;
-      window.history.replaceState(null, '', newUrl);
+      window.history.replaceState(null, "", newUrl);
     }
   };
 
@@ -199,40 +201,8 @@ export default class RecipeStore {
     this.filtersCategoryParam = this.filtersCategory.map((option) => option.key);
   };
 
-
-  private async initLoadAll(): Promise<void> {
-    if (typeof window === 'undefined') {
-      runInAction(() => {
-        this.loading = false;
-      });
-      return;
-    }
-
-    try {
-      const recipes = await this._rootStore.categories.loadCategoriesAndRecipes({
-        page: this.page,
-        pageSize: this.pageSize,
-        search: this.search,
-        categoryFilters: this.filtersCategory
-      });
-
-      runInAction(() => {
-        this.recipes = recipes;
-      });
-    } catch {
-      runInAction(() => {
-        this.error = 'Сеть или парсинг недоступны';
-      });
-    } finally {
-      runInAction(() => {
-        this.loading = false;
-      });
-    }
+  get _depsKey(): string {
+    const filters = this.filtersCategoryParam.join(",");
+    return `${this.page}|${this.pageSize}|${this.search}|${filters}`;
   }
-
-    get _depsKey(): string {
-      const filters = this.filtersCategoryParam.join(',');
-      return `${this.page}|${this.pageSize}|${this.search}|${filters}`;
-    }
 }
-

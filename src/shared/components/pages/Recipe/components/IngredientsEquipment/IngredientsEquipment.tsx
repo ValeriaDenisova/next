@@ -1,11 +1,10 @@
-import React from 'react';
-import Image from 'next/image';
-import IngredientsEquipmentContainer from './components/IngredientsEquipmentContainer';
-import IngredientsEquipmentElement from './components/IngredientsEquipmentContainer/components/IngredientsEquipmenElement';
-import IngredientsEquipmentSeparator from './components/IngredientsEquipmentSeparator';
-import ingredientsSvg from '@public/icons/ingredients.svg';
-import equipmentSvg from '@public/icons/equipment.svg';
-import s from './IngredientsEquipment.module.scss';
+import React from "react";
+import IngredientsEquipmentContainer from "./components/IngredientsEquipmentContainer";
+import IngredientsEquipmentElement from "./components/IngredientsEquipmentContainer/components/IngredientsEquipmenElement";
+import IngredientsEquipmentSeparator from "./components/IngredientsEquipmentSeparator";
+import Equipment from "@components/icons/Equipment";
+import Ingredients from "@components/icons/Ingredients";
+import s from "./IngredientsEquipment.module.scss";
 
 interface IngredientsEquipmentProps {
   ingradients: {
@@ -24,27 +23,43 @@ const IngredientsEquipment: React.FC<IngredientsEquipmentProps> = ({ ingradients
   return (
     <div className={s.ingredientsContainer}>
       <IngredientsEquipmentContainer
-        title={'Ingredients'}
-        width={'calc(50% - 3.5px)'}
+        title={"Ingredients"}
+        width={"calc(50% - 3.5px)"}
         arrayElement={[
           ingradients?.map((ingradient) => (
             <IngredientsEquipmentElement
               key={ingradient.id}
-              svg={<Image src={ingredientsSvg} alt="" width={24} height={24}/>}
               text={`${ingradient.amount} ${ingradient.name}`}
+              svg={
+                <Ingredients
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  color="secondary"
+                />
+              }
             />
           )),
         ]}
       />
       <IngredientsEquipmentSeparator />
       <IngredientsEquipmentContainer
-        title={'Equipment'}
-        width={'calc(50% - 3.5px)'}
+        title={"Equipment"}
+        width={"calc(50% - 3.5px)"}
         arrayElement={[
           equipments?.map((equipment) => (
             <IngredientsEquipmentElement
               key={equipment.id}
-              svg={<Image src={equipmentSvg} alt="" width={24} height={24} />}
+              svg={
+                <Equipment
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  color="secondary"
+                />
+              }
               text={equipment.name}
             />
           )),

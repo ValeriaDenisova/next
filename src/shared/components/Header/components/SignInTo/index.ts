@@ -1,2 +1,2 @@
-export { default } from './SingInTo';
-export * from './SingInTo';
+export { default } from "./SingInTo";
+export * from "./SingInTo";

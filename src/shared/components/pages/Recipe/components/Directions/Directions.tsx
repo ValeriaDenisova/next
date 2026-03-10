@@ -1,7 +1,7 @@
-import React from 'react';
-import Step from './components/Step';
-import TextTitle from '@components/TextTitle';
-import s from './Directions.module.scss';
+import React from "react";
+import Step from "./components/Step";
+import TextTitle from "@components/TextTitle";
+import s from "./Directions.module.scss";
 
 interface DirectionsProps {
   directions: {
@@ -13,7 +13,7 @@ interface DirectionsProps {
 const Directions: React.FC<DirectionsProps> = ({ directions }) => {
   return (
     <div className={s.directions}>
-      <TextTitle text={'Directions'} />
+      <TextTitle text={"Directions"} />
       <div className={s.stenContant}>
         {directions?.map((direction, index) => (
           <Step key={direction.id} number={`${index}`} text={direction.description} />

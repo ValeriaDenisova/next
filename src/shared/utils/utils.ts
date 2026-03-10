@@ -1,5 +1,5 @@
-import type { Option } from '@components/MultiDropdown/MultiDropdown';
-import type { SmoothScrollOptions } from './types';
+import type { Option } from "@components/MultiDropdown/MultiDropdown";
+import type { SmoothScrollOptions } from "./types";
 
 export const getPages = (numberStarlings: number, active: number) => {
   const pages = [];
@@ -10,22 +10,22 @@ export const getPages = (numberStarlings: number, active: number) => {
     return pages;
   }
   if (active === 1) {
-    pages.push(1, 2, 3, '...', numberStarlings);
+    pages.push(1, 2, 3, "...", numberStarlings);
     return pages;
   }
   if (active === 2) {
-    pages.push(1, 2, 3, '...', numberStarlings);
+    pages.push(1, 2, 3, "...", numberStarlings);
     return pages;
   }
   if (active === numberStarlings) {
-    pages.push(1, '...', numberStarlings - 2, numberStarlings - 1, numberStarlings);
+    pages.push(1, "...", numberStarlings - 2, numberStarlings - 1, numberStarlings);
     return pages;
   }
   if (active === numberStarlings - 1) {
-    pages.push(1, '...', numberStarlings - 2, numberStarlings - 1, numberStarlings);
+    pages.push(1, "...", numberStarlings - 2, numberStarlings - 1, numberStarlings);
     return pages;
   }
-  pages.push(1, '...', active - 1, active, active + 1, '...', numberStarlings);
+  pages.push(1, "...", active - 1, active, active + 1, "...", numberStarlings);
   return pages;
 };
 
@@ -33,11 +33,11 @@ export const nullFunction = () => null;
 
 export const handleTitle = (category: Option[]) => {
   if (category.length == 0) {
-    return 'Categories';
+    return "Categories";
   }
   return category.reduce((acc, item) => {
-    return acc + (acc !== '' ? ', ' : '') + item.value;
-  }, '');
+    return acc + (acc !== "" ? ", " : "") + item.value;
+  }, "");
 };
 
 export function smoothScrollTo(targetTop: number, opts: SmoothScrollOptions = {}) {
@@ -59,7 +59,7 @@ export function smoothScrollTo(targetTop: number, opts: SmoothScrollOptions = {}
       : (el as HTMLElement).scrollTop;
   const setScroll = (v: number) => {
     if (isWindow) {
-      window.scrollTo({ top: v, behavior: 'auto' });
+      window.scrollTo({ top: v, behavior: "auto" });
     } else {
       (el as HTMLElement).scrollTop = v;
     }
@@ -129,15 +129,15 @@ export function smoothScrollTo(targetTop: number, opts: SmoothScrollOptions = {}
   requestAnimationFrame(step);
 }
 
-
-export async function resolveParamsId(params: any): Promise<string> {
-  if (params && typeof (params as any).then === 'function') {
+export async function resolveParamsId(params: unknown): Promise<string> {
+  // if (params && typeof params.then === "function") {
+  if (params) {
     const resolved = await (params as Promise<{ id: string }>);
-    return resolved?.id ?? '';
+    return resolved?.id ?? "";
   }
-  const idRaw = (params as { id?: any }).id;
+  const idRaw = (params as { id?: string }).id;
   if (Array.isArray(idRaw)) {
-    return idRaw[0] ?? '';
+    return idRaw[0] ?? "";
   }
-  return idRaw ?? '';
+  return idRaw ?? "";
 }

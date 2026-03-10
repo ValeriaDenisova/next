@@ -1,76 +1,75 @@
-'use client'
-import React, { useEffect, useState } from 'react'
-import Image from 'next/image'
-import { observer } from 'mobx-react-lite'
-import Button from '@components/Button'
-import Input from '@components/Input'
-import MultiDropdown from '@components/MultiDropdown'
-import search from '@public/icons/search.svg'
-import slot from '@public/icons/slot.svg'
-import clear from '@public/icons/clear.svg'
-import { useCategoriesStore, useRecipeStore } from '@store/hooks/globalStores'
-import type { Option } from '@components/MultiDropdown/MultiDropdown'
-import { handleTitle } from '@utils/utils'
-import { Categories } from '@entities/api/Categories'
-import s from './Filter.module.scss'
+"use client";
+import React, { useEffect, useState } from "react";
+import { observer } from "mobx-react-lite";
+import Button from "@components/Button";
+import Input from "@components/Input";
+import MultiDropdown from "@components/MultiDropdown";
+import { useCategoriesStore, useRecipeStore } from "@store/hooks/globalStores";
+import type { Option } from "@components/MultiDropdown/MultiDropdown";
+import { handleTitle } from "@utils/utils";
+import { Categories } from "@entities/api/Categories";
+import Clear from "@components/icons/Clear";
+import Search from "@components/icons/Search";
+import s from "./Filter.module.scss";
+import Slot from "@/shared/components/icons/Slot";
 
 const Filter: React.FC = observer(() => {
-  const resipes = useRecipeStore()
-  const categories = useCategoriesStore()
+  const resipes = useRecipeStore();
+  const categories = useCategoriesStore();
 
-  const [tempSearch, setTempSearch] = React.useState<string>('')
-  const [categoriesFilter, setCategoriesFilter] = React.useState<Option[]>([])
-  const [isOpen, setIsOpen] = React.useState<boolean>(false)
-  const [checkFilter, setCheckFilter] = useState<boolean>(false)
+  const [tempSearch, setTempSearch] = React.useState<string>("");
+  const [categoriesFilter, setCategoriesFilter] = React.useState<Option[]>([]);
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [checkFilter, setCheckFilter] = useState<boolean>(false);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search)
-      const categoriesJSON = params.get('category')
-      const searchUrl = params.get('search');
-     
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const categoriesJSON = params.get("category");
+      const searchUrl = params.get("search");
+
       if (categoriesJSON) {
         try {
-          const categoriesFromUrl = JSON.parse(decodeURIComponent(categoriesJSON))
-          setCategoriesFilter(categoriesFromUrl)
-          setCheckFilter(true)
+          const categoriesFromUrl = JSON.parse(decodeURIComponent(categoriesJSON));
+          setCategoriesFilter(categoriesFromUrl);
+          setCheckFilter(true);
         } catch (e) {
-          console.error('Ошибка при разборе категорий из URL', e)
+          console.error("Ошибка при разборе категорий из URL", e);
         }
       } else {
-        setCheckFilter(true)
+        setCheckFilter(true);
       }
 
-      if(searchUrl){
-        try{
-          setTempSearch(searchUrl === null ? '' : searchUrl)
-        }catch (e) {
-          console.error('Ошибка при разборе search из URL', e)
+      if (searchUrl) {
+        try {
+          setTempSearch(searchUrl === null ? "" : searchUrl);
+        } catch (e) {
+          console.error("Ошибка при разборе search из URL", e);
         }
       }
     }
-  }, []) 
+  }, []);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search)
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
       if (categoriesFilter.length > 0) {
-        const jsonString = encodeURIComponent(JSON.stringify(categoriesFilter))
-        params.set('category', jsonString)
+        const jsonString = encodeURIComponent(JSON.stringify(categoriesFilter));
+        params.set("category", jsonString);
       } else if (checkFilter) {
-        params.delete('category')
+        params.delete("category");
       }
-      window.history.replaceState(null, '', `?${params.toString()}`)
+      window.history.replaceState(null, "", `?${params.toString()}`);
     }
-  }, [categoriesFilter, checkFilter])
+  }, [categoriesFilter, checkFilter]);
 
   useEffect(() => {
-    resipes.setFiltersCategory(categoriesFilter)
-  }, [categoriesFilter])
+    resipes.setFiltersCategory(categoriesFilter);
+  }, [categoriesFilter]);
 
   useEffect(() => {
-    resipes.setSearch(tempSearch)
-  }, [tempSearch])
+    resipes.setSearch(tempSearch);
+  }, [tempSearch]);
 
   return (
     <div className={s.filter}>
@@ -79,21 +78,27 @@ const Filter: React.FC = observer(() => {
           <Input
             value={tempSearch}
             onChange={setTempSearch}
-            placeholder={'Enter dishes'}
-            width={'100%'}
+            placeholder={"Enter dishes"}
+            width={"100%"}
             onChangeKey={(value) => {
-              resipes.setSearch(value)
+              resipes.setSearch(value);
             }}
             afterSlot={
-              <Image
-                src={clear}
-                alt=""
+              <Clear
+                width="24px"
+                height="24px"
+                viewBox="0 0 16 16"
+                version="1.1"
+                fill="none"
+                color="primary"
+                stroke="#afadb5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1.5"
                 onClick={() => {
-                  setTempSearch('')
-                  resipes.setSearch('')
+                  setTempSearch("");
+                  resipes.setSearch("");
                 }}
-                width={24}
-                height={24}
               />
             }
           />
@@ -101,10 +106,10 @@ const Filter: React.FC = observer(() => {
         <Button
           search={true}
           onClick={() => {
-            resipes.setSearch(tempSearch)
+            resipes.setSearch(tempSearch);
           }}
         >
-          <Image src={search} alt="" width={24} height={24} />
+          <Search width="24" height="24" viewBox="0 0 24 24" fill="none" />
         </Button>
       </div>
       <div className={s.category}>
@@ -112,28 +117,35 @@ const Filter: React.FC = observer(() => {
           onChange={setCategoriesFilter}
           getTitle={handleTitle}
           options={categories.cleanCategories.map((item: Categories) => {
-            return { key: item.id, value: item.title }
+            return { key: item.id, value: item.title };
           })}
           value={categoriesFilter}
           afterSlot={
             <div className={s.categoriesFilter__slot}>
-              <Image
-                src={clear}
-                alt=""
+              <Clear
+                width="24px"
+                height="24px"
+                viewBox="0 0 16 16"
+                version="1.1"
+                fill="none"
+                color="primary"
+                stroke="#afadb5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1.5"
                 onClick={() => {
-                  setCategoriesFilter([])
+                  setCategoriesFilter([]);
                 }}
-                width={24}
-                height={24}
               />
-              <Image
-                src={slot}
-                alt=""
+              <Slot
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                color="primary"
                 onClick={() => {
-                  setIsOpen(!isOpen)
+                  setIsOpen(!isOpen);
                 }}
-                width={24}
-                height={24}
               />
             </div>
           }
@@ -142,7 +154,7 @@ const Filter: React.FC = observer(() => {
         />
       </div>
     </div>
-  )
-})
+  );
+});
 
-export default Filter
+export default Filter;

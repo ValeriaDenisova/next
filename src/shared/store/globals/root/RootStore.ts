@@ -1,15 +1,15 @@
-import { makeAutoObservable, runInAction } from 'mobx';
-import ApiStore from '@store/globals/ApiStore';
-import UserStore from '@store/globals/UserStore';
-import FavoritesStore from '@store/globals/FavoritesStore';
-import CategoriesStore from '@store/globals/CategoriesStore';
-import RecipeStore from '@store/globals/RecipeStore';
-import SingInToStore from '@store/globals/SingInToStore';
-import { initStoreContext } from '@utils/initStoreContext';
-import { API_BASE_URL } from '@config/apiConfig';
-import LogInStore from '../LogInStore';
+import { makeAutoObservable, runInAction } from "mobx";
+import ApiStore from "@store/globals/ApiStore";
+import UserStore from "@store/globals/UserStore";
+import FavoritesStore from "@store/globals/FavoritesStore";
+import CategoriesStore from "@store/globals/CategoriesStore";
+import RecipeStore from "@store/globals/RecipeStore";
+import SingInToStore from "@store/globals/SingInToStore";
+import { initStoreContext } from "@utils/initStoreContext";
+import { API_BASE_URL } from "@config/apiConfig";
+import LogInStore from "../LogInStore";
 
-export class RootStore implements IRootStore{
+export class RootStore implements IRootStore {
   readonly api: ApiStore;
   readonly user: UserStore;
   readonly favorites: FavoritesStore;
@@ -21,7 +21,7 @@ export class RootStore implements IRootStore{
   private _token: string | null = null;
 
   constructor() {
-    this._token = (typeof window !== 'undefined') ? localStorage.getItem('token') : null;
+    this._token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
     this.api = new ApiStore(API_BASE_URL, () => this.token);
     this.user = new UserStore(this);
     this.favorites = new FavoritesStore(this);
@@ -36,17 +36,16 @@ export class RootStore implements IRootStore{
   get token(): string | null {
     runInAction(() => {
       if (this._token) return this._token;
-      if (typeof window !== 'undefined') this._token = localStorage.getItem('token');
+      if (typeof window !== "undefined") this._token = localStorage.getItem("token");
     });
     return this._token;
-
   }
 
   setToken(token: string | null) {
     this._token = token;
-    if (typeof window !== 'undefined') {
-      if (token) localStorage.setItem('token', token);
-      else localStorage.removeItem('token');
+    if (typeof window !== "undefined") {
+      if (token) localStorage.setItem("token", token);
+      else localStorage.removeItem("token");
     }
   }
 
@@ -61,4 +60,4 @@ export const {
   store: rootStore,
   StoreProvider: RootStoreProvider,
   useStoreContext: useRootStore,
-} = initStoreContext(() => new RootStore(), 'rootStore');
+} = initStoreContext(() => new RootStore(), "rootStore");

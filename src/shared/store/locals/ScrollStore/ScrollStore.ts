@@ -1,5 +1,5 @@
-import { runInAction, reaction } from 'mobx';
-import { rootStore, RootStore } from '@store/globals/root/RootStore';
+import { runInAction, reaction } from "mobx";
+import { rootStore, RootStore } from "@store/globals/root/RootStore";
 
 export default class ScrollStore {
   hasMore: boolean = true;
@@ -18,7 +18,7 @@ export default class ScrollStore {
 
   constructor(scrollPositionRef: React.RefObject<number>) {
     this.scrollPositionRef = scrollPositionRef;
-    window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener("scroll", this.handleScroll);
     this._rootStore = rootStore;
 
     reaction(
@@ -29,7 +29,7 @@ export default class ScrollStore {
         setTimeout(() => {
           this.isScroll = true;
         }, 1000);
-      }
+      },
     );
 
     reaction(
@@ -40,14 +40,14 @@ export default class ScrollStore {
         setTimeout(() => {
           this.isScroll = true;
         }, 1000);
-      }
+      },
     );
   }
 
   loadMore = () => {
     if (this.load || !this.hasMore) return;
     if (!this.isScroll) {
-      window.scrollTo({ top: this.scroll, left: 0, behavior: 'auto' });
+      window.scrollTo({ top: this.scroll, left: 0, behavior: "auto" });
     }
 
     this.scrollPositionRef.current = window.pageYOffset || document.documentElement.scrollTop;
@@ -94,6 +94,6 @@ export default class ScrollStore {
   };
 
   destroy() {
-    window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener("scroll", this.handleScroll);
   }
 }

@@ -1,7 +1,7 @@
-import React from 'react';
-import s from './Input.module.scss';
+import React from "react";
+import s from "./Input.module.scss";
 
-export type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'> & {
+export type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange" | "value"> & {
   value?: string;
   onChange: (value: string) => void;
   onChangeKey?: (value: string) => void;
@@ -14,7 +14,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ value, onChange, onChangeKey, afterSlot, className, placeholder, width, ...rest }, ref) => {
     return (
       <div
-        className={`${s.container} ${rest.disabled ? s.container__disabled : ''} ${className}`}
+        className={`${s.container} ${rest.disabled ? s.container__disabled : ""} ${className}`}
         style={{ width }}
       >
         <input
@@ -27,7 +27,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             }
           }}
           onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
-            if (e.key === 'Enter' && onChangeKey !== undefined) {
+            if (e.key === "Enter" && onChangeKey !== undefined) {
               const input = e.target as HTMLInputElement;
               onChangeKey(input.value);
             }
@@ -40,9 +40,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {afterSlot && <div className={s.slot}>{afterSlot}</div>}
       </div>
     );
-  }
+  },
 );
 
-Input.displayName = 'Input';
+Input.displayName = "Input";
 
 export default React.memo(Input);

@@ -1,5 +1,5 @@
-import React from 'react';
-import type { ILocalStore } from '@entities/ILocalStore';
+import React from "react";
+import type { ILocalStore } from "@entities/ILocalStore";
 
 export const useLocalStore = <T extends ILocalStore>(creator: () => T): T => {
   const [store] = React.useState<T>(() => creator());

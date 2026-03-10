@@ -3,9 +3,9 @@ export type MenuItem = {
 };
 
 export const MENU_CONFIG: MenuItem[] = [
-  { title: 'Recipes' },
-  { title: 'Meals Categories' },
-  { title: 'Products' },
-  { title: 'Menu Items' },
-  { title: 'Meal Planning' },
+  { title: "Recipes" },
+  { title: "Meals Categories" },
+  { title: "Products" },
+  { title: "Menu Items" },
+  { title: "Meal Planning" },
 ];

@@ -1,6 +1,6 @@
-import React from 'react';
-import Text from '@components/Text';
-import s from './Subtitle.module.scss';
+import React from "react";
+import Text from "@components/Text";
+import s from "./Subtitle.module.scss";
 
 interface SubtitleProps {
   text: string;

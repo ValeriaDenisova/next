@@ -1,6 +1,6 @@
-import * as React from 'react';
-import Text from '../Text/Text';
-import s from './TextTitle.module.scss';
+import * as React from "react";
+import Text from "../Text/Text";
+import s from "./TextTitle.module.scss";
 
 export type TextTitleProps = {
   text: string;

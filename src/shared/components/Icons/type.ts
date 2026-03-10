@@ -1,4 +1,4 @@
-type ColorType = 'primary' | 'secondary' | 'accent';
+type ColorType = "primary" | "secondary" | "accent";
 
 export interface IconProps {
   className: string;

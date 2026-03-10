@@ -1,13 +1,13 @@
-'use client'
-import React from 'react';
-import { observer } from 'mobx-react-lite';
-import parse from 'html-react-parser';
-import Link from 'next/link';
-import Card from '@components/Card';
-import Text from '@components/Text';
-import Loader from '@components/Loader';
-import { useUserStore, useFavoritesStore } from '@store/hooks/globalStores';
-import s from './FavoriteRecipes.module.scss';
+"use client";
+import React from "react";
+import { observer } from "mobx-react-lite";
+import parse from "html-react-parser";
+import Link from "next/link";
+import Card from "@components/Card";
+import Text from "@components/Text";
+import Loader from "@components/Loader";
+import { useUserStore, useFavoritesStore } from "@store/hooks/globalStores";
+import s from "./FavoriteRecipes.module.scss";
 
 interface FavoriteRecipesProps {
   onFavoriteClose: () => void;
@@ -34,31 +34,31 @@ const FavoriteRecipes: React.FC<FavoriteRecipesProps> = observer(({ onFavoriteCl
         <div className={s.favoriteRecipes}>
           {favorites.cleanRecipes.map((item) => {
             const cleanedSummary = item.summary
-              .replace(/<a[^>]*>(.*?)<\/a>/g, '<span>$1</span>')
-              .replace(/<p[^>]*>(.*?)<\/p>/g, '<div>$1</div>');
+              .replace(/<a[^>]*>(.*?)<\/a>/g, "<span>$1</span>")
+              .replace(/<p[^>]*>(.*?)<\/p>/g, "<div>$1</div>");
 
             return (
               <Link
                 key={item.documentId}
                 href={`/recipe/${item.documentId}`}
-                style={{ textDecoration: 'none' }}
+                style={{ textDecoration: "none" }}
                 onClick={onFavoriteClose}
               >
-                  <Card
-                    image={item.images}
-                    title={item.name}
-                    subtitle={parse(cleanedSummary)}
-                    contentSlot={<p className={s.slot}>{item.calories} kcal</p>}
-                  />
+                <Card
+                  image={item.images}
+                  title={item.name}
+                  subtitle={parse(cleanedSummary)}
+                  contentSlot={<p className={s.slot}>{item.calories} kcal</p>}
+                />
               </Link>
             );
           })}
         </div>
       )}
 
-        {favorites.cleanRecipes.length === 0 && user.hasToken && (
-          <Text className={s.notLike}>Your favorite recipes will be displayed here.</Text>
-        )}
+      {favorites.cleanRecipes.length === 0 && user.hasToken && (
+        <Text className={s.notLike}>Your favorite recipes will be displayed here.</Text>
+      )}
     </>
   );
 });
