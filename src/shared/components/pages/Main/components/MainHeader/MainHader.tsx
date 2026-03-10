@@ -15,6 +15,7 @@ const MainHeader: React.FC = () => {
           fill
           sizes="(max-width: 640px) 100vw"
           style={{ objectFit: "cover" }}
+          priority
         />
         <div className={s.title}>
           <Image className={s.title__svg} src={recipes} alt="" width={313} height={185} />

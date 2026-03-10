@@ -16,17 +16,21 @@ import Slot from "@/shared/components/icons/Slot";
 const Filter: React.FC = observer(() => {
   const resipes = useRecipeStore();
   const categories = useCategoriesStore();
-
   const [tempSearch, setTempSearch] = React.useState<string>("");
   const [categoriesFilter, setCategoriesFilter] = React.useState<Option[]>([]);
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const [checkFilter, setCheckFilter] = useState<boolean>(false);
+  const [searchCheck, setSearchCheck] = useState<boolean>(true);
+
+  setTimeout(() => {
+    setSearchCheck(false);
+  }, 500);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
       const categoriesJSON = params.get("category");
-      const searchUrl = params.get("search");
+      const searchRaw = params.get("search");
 
       if (categoriesJSON) {
         try {
@@ -40,9 +44,9 @@ const Filter: React.FC = observer(() => {
         setCheckFilter(true);
       }
 
-      if (searchUrl) {
+      if (searchRaw) {
         try {
-          setTempSearch(searchUrl === null ? "" : searchUrl);
+          setTempSearch(decodeURIComponent(searchRaw));
         } catch (e) {
           console.error("Ошибка при разборе search из URL", e);
         }
@@ -68,7 +72,9 @@ const Filter: React.FC = observer(() => {
   }, [categoriesFilter]);
 
   useEffect(() => {
-    resipes.setSearch(tempSearch);
+    if (searchCheck) {
+      resipes.setSearch(tempSearch);
+    }
   }, [tempSearch]);
 
   return (

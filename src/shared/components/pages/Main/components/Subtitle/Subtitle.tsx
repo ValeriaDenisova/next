@@ -3,7 +3,7 @@ import Text from "@components/Text";
 import s from "./Subtitle.module.scss";
 
 interface SubtitleProps {
-  text: string;
+  text: React.ReactNode;
 }
 
 const Subtitle: React.FC<SubtitleProps> = ({ text }) => {

@@ -1,4 +1,4 @@
-import { runInAction, makeAutoObservable, toJS, reaction, IReactionDisposer } from "mobx";
+import { runInAction, makeAutoObservable, toJS, reaction } from "mobx";
 import { normalizeFavorites, type FavoritesApi, type Favorites } from "@entities/api/Favorites";
 import ApiStore from "../ApiStore";
 import { API_BASE_URL } from "@config/apiConfig";
@@ -12,15 +12,16 @@ export default class FavoritesStore {
 
   private apiWithAuth: ApiStore;
   private _rootStore: IRootStore;
-  private _tokenReaction?: IReactionDisposer;
+  private token: string | null;
 
   constructor(root: IRootStore) {
     makeAutoObservable(this);
     this._rootStore = root;
     this.apiWithAuth = new ApiStore(API_BASE_URL, () => this._rootStore.token);
+    this.token = this._rootStore.token;
     this.fetchRecipes();
-    this._tokenReaction = reaction(
-      () => this._rootStore.token,
+    reaction(
+      () => this.token,
       (token) => {
         if (token) {
           this.fetchRecipes();
@@ -28,6 +29,9 @@ export default class FavoritesStore {
       },
       { fireImmediately: false },
     );
+  }
+  setToken(token: string | null) {
+    this.token = token;
   }
 
   async fetchRecipes() {

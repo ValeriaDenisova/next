@@ -27,7 +27,14 @@ const Recipes: React.FC<RecipesProps> = ({ initialRecipes, initialTotal, initial
 
   return (
     <div className={s.recipes}>
-      <Subtitle text="Find the perfect food and drink ideas for every occasion, from weeknight dinners to holiday feasts." />
+      <Subtitle
+        text={
+          <span>
+            Find the perfect food and <u>drink ideas</u> for every occasion, from{" "}
+            <u>weeknight dinners</u> to <u>holiday feasts.</u>
+          </span>
+        }
+      />
       <Filter />
       <Products />
     </div>

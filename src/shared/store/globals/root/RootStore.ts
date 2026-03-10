@@ -19,9 +19,11 @@ export class RootStore implements IRootStore {
   readonly logInStore: LogInStore;
 
   private _token: string | null = null;
+  private _username: string | null | undefined = null;
 
   constructor() {
     this._token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    this._username = typeof window !== "undefined" ? localStorage.getItem("username") : null;
     this.api = new ApiStore(API_BASE_URL, () => this.token);
     this.user = new UserStore(this);
     this.favorites = new FavoritesStore(this);
@@ -41,16 +43,30 @@ export class RootStore implements IRootStore {
     return this._token;
   }
 
-  setToken(token: string | null) {
+  get username(): string | null | undefined {
+    runInAction(() => {
+      if (this._username) return this._username;
+      if (typeof window !== "undefined") this._username = localStorage.getItem("username");
+    });
+    return this._username;
+  }
+
+  setToken(token: string | null, username: string | null | undefined) {
     this._token = token;
+    this._username = username;
+    this.favorites.setToken(token);
     if (typeof window !== "undefined") {
       if (token) localStorage.setItem("token", token);
       else localStorage.removeItem("token");
+
+      if (username) localStorage.setItem("username", username);
+      else localStorage.removeItem("username");
     }
   }
 
   clearToken() {
-    this.setToken(null);
+    this.setToken(null, null);
+    this.favorites.setToken(null);
   }
 }
 

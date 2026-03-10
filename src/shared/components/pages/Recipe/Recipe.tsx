@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
 import parse from "html-react-parser";
 import RecipeHeader from "./components/RecipeHeader";
@@ -27,6 +27,11 @@ const Recipe: React.FC<RecipeProps> = observer(({ id, initialData }) => {
     };
   }, []);
 
+  const [hasToken, setHasToken] = useState(false);
+  useEffect(() => {
+    setHasToken(!!(typeof window !== "undefined" ? localStorage.getItem("token") : null));
+  }, []);
+
   return (
     <div className="wrapper">
       {info.cleanLoading && (
@@ -36,7 +41,13 @@ const Recipe: React.FC<RecipeProps> = observer(({ id, initialData }) => {
       )}
       {!info.cleanLoading && (
         <div className={s.recipe}>
-          <RecipeHeader name={initialData.name} loading={info.cleanLoading} info={info} id={id} />
+          <RecipeHeader
+            name={initialData.name}
+            loading={info.cleanLoading}
+            info={info}
+            id={id}
+            hasToken={hasToken}
+          />
           <div className={s.recipe__content}>
             {info.cleanRecipeInfo && (
               <RecipesInfo

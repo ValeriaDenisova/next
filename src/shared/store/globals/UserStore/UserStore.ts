@@ -2,13 +2,14 @@ import { runInAction, makeAutoObservable } from "mobx";
 import type { IRootStore } from "../root/RootStore";
 
 export default class UserStore {
-  username: string | undefined = undefined;
+  username: string | undefined | null;
 
   private _rootStore: IRootStore;
 
   constructor(root: IRootStore) {
     makeAutoObservable(this);
     this._rootStore = root;
+    this.username = this._rootStore.username;
   }
 
   async entrance(login?: string, password?: string) {
@@ -20,7 +21,7 @@ export default class UserStore {
       const user = this._rootStore.singInToStore.cleanSingInToUser;
       const token = user?.jwt ?? null;
       this.username = user?.user.username;
-      if (token) this._rootStore.setToken(token);
+      if (token) this._rootStore.setToken(token, user?.user.username);
     });
   }
 
@@ -29,7 +30,7 @@ export default class UserStore {
     this.username = undefined;
   };
 
-  get userName(): string | undefined {
+  get userName(): string | undefined | null {
     return this.username;
   }
 

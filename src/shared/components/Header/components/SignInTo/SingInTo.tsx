@@ -77,6 +77,7 @@ const SingInTo: React.FC = observer(() => {
           {registerResult === false && <Text className={s.errorText}>Check the entered data</Text>}
           <Button
             className={s.singInTo__button}
+            disabled={registerResult === true}
             onClick={async () => {
               await logIn.fetchRecipes({
                 username: loginRegister,
