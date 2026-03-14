@@ -1,10 +1,14 @@
 import React from "react";
 import Image from "next/image";
 import mainImage from "@public/main.png";
-import recipes from "@components/icons/Recipes.svg";
+import Text from "@/shared/components/Text";
 import s from "./MainHeader.module.scss";
 
-const MainHeader: React.FC = () => {
+interface MainHeaderProps {
+  title: string;
+}
+
+const MainHeader: React.FC<MainHeaderProps> = ({ title }) => {
   return (
     <>
       <div className={s.mainHeader}>
@@ -18,7 +22,7 @@ const MainHeader: React.FC = () => {
           priority
         />
         <div className={s.title}>
-          <Image className={s.title__svg} src={recipes} alt="" width={313} height={185} />
+          <Text className={s.text}>{title}</Text>
         </div>
       </div>
     </>

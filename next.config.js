@@ -6,6 +6,11 @@ const nextConfig = {
         protocol: "https",
         hostname: "front-school.minio.ktsdev.ru",
       },
+      {
+        protocol: "https",
+        hostname: "img.spoonacular.com",
+        pathname: "/recipes/**",
+      },
     ],
   },
 };

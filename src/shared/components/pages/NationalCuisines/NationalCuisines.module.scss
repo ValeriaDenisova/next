@@ -1,0 +1,46 @@
+@use "@styles/mixins" as *;
+
+.title {
+  @include title;
+}
+
+.cuisines__name {
+  @include categoriesTitle;
+}
+
+.cuisines__container {
+  @include categoriesContainer;
+}
+
+.diens {
+  display: inline-block;
+}
+.diets__name {
+  @include categoriesTitle;
+  display: inline-block;
+}
+
+.container {
+  @include subCategories;
+  @include respondToSmall {
+    display: none;
+  }
+}
+
+.active {
+  @include categoriesActive;
+}
+
+.recipe__title {
+  @include recipeTitle;
+}
+.recipe {
+  @include recipeContainer;
+}
+
+.recipe__text {
+  @include fz20;
+  @include respondToSmall {
+    text-align: center;
+  }
+}

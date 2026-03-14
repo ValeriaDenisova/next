@@ -6,9 +6,9 @@ import { normalizeCategories } from "@entities/api/Categories";
 import Main from "@components/pages/Main";
 
 export const metadata: Metadata = {
-  title: "Рецепты — сборник блюд на каждый день",
+  title: "Meal Planning Recipes - a collection of dishes for every day",
   description:
-    "Откройте для себя широкий ассортимент рецептов: быстрые и простые блюда, пошаговые инструкции и советы по подаче. Найдите идеи для завтраков, обеда и ужина",
+    "Discover a wide range of recipes: quick and easy dishes, step-by-step instructions, and serving tips. Find ideas for breakfast, lunch, and dinner",
 };
 
 export default async function Home() {

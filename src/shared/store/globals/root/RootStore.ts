@@ -6,8 +6,9 @@ import CategoriesStore from "@store/globals/CategoriesStore";
 import RecipeStore from "@store/globals/RecipeStore";
 import SingInToStore from "@store/globals/SingInToStore";
 import { initStoreContext } from "@utils/initStoreContext";
-import { API_BASE_URL } from "@config/apiConfig";
+import { API_BASE_URL, API_URL } from "@config/apiConfig";
 import LogInStore from "../LogInStore";
+import RecipeDietsStope from "../RecipeDietsStore";
 
 export class RootStore implements IRootStore {
   readonly api: ApiStore;
@@ -17,6 +18,8 @@ export class RootStore implements IRootStore {
   readonly resipes: RecipeStore;
   readonly singInToStore: SingInToStore;
   readonly logInStore: LogInStore;
+  readonly apiDiets: ApiStore;
+  readonly recipeDiets: RecipeDietsStope;
 
   private _token: string | null = null;
   private _username: string | null | undefined = null;
@@ -31,6 +34,8 @@ export class RootStore implements IRootStore {
     this.resipes = new RecipeStore(this);
     this.singInToStore = new SingInToStore(this);
     this.logInStore = new LogInStore(this);
+    this.apiDiets = new ApiStore(API_URL, () => this.token);
+    this.recipeDiets = new RecipeDietsStope(this);
 
     makeAutoObservable(this);
   }

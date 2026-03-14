@@ -130,7 +130,6 @@ export function smoothScrollTo(targetTop: number, opts: SmoothScrollOptions = {}
 }
 
 export async function resolveParamsId(params: unknown): Promise<string> {
-  // if (params && typeof params.then === "function") {
   if (params) {
     const resolved = await (params as Promise<{ id: string }>);
     return resolved?.id ?? "";
@@ -140,4 +139,14 @@ export async function resolveParamsId(params: unknown): Promise<string> {
     return idRaw[0] ?? "";
   }
   return idRaw ?? "";
+}
+
+export function dinnerNumber(total: number): number | null {
+  if (total <= 0) return null;
+  return Math.floor(Math.random() * total);
+}
+
+export function capitalizeFirstLetter(s: string) {
+  if (!s) return s;
+  return s.charAt(0).toUpperCase() + s.slice(1);
 }

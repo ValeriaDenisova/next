@@ -4,6 +4,7 @@ export default function Error({ error, reset }: { error: Error; reset: () => voi
   return (
     <div
       style={{
+        fontFamily: "Roboto",
         height: "80vh",
         display: "flex",
         flexDirection: "column",

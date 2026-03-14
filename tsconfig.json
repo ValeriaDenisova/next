@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -11,7 +15,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     "plugins": [
       {
@@ -20,18 +24,49 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@components/*": ["./src/shared/components/*"],
-      "@store/*": ["./src/shared/store/*"],
-      "@entities/*": ["./src/shared/entities/*"],
-      "@config/*": ["./src/shared/config/*"],
-      "@utils/*": ["./src/shared/utils/*"],
-      "@styles/*": ["./src/shared/styles/*"],
-      "@providers/*": ["src/shared/providers/*"],
-      "@api/*": ["src/shared/api/*"],
-      "@public/*": ["src/public/*"]
-    },
+      "@/*": [
+        "./src/*"
+      ],
+      "@components/*": [
+        "./src/shared/components/*"
+      ],
+      "@store/*": [
+        "./src/shared/store/*"
+      ],
+      "@entities/*": [
+        "./src/shared/entities/*"
+      ],
+      "@config/*": [
+        "./src/shared/config/*"
+      ],
+      "@utils/*": [
+        "./src/shared/utils/*"
+      ],
+      "@styles/*": [
+        "./src/shared/styles/*"
+      ],
+      "@providers/*": [
+        "src/shared/providers/*"
+      ],
+      "@api/*": [
+        "src/shared/api/*"
+      ],
+      "@public/*": [
+        "src/public/*"
+      ],
+      "@constants/*": [
+        "src/shared/constants/*"
+      ]
+    }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

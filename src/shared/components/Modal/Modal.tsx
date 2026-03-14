@@ -4,17 +4,17 @@ import s from "./Modal.module.scss";
 
 interface modalProps {
   isModal: boolean;
-  onFavoriteClose: () => void;
+  onClose: () => void;
   title?: string;
   children: React.ReactNode;
 }
 
-const Modal: React.FC<modalProps> = ({ isModal, onFavoriteClose, title, children }) => {
+const Modal: React.FC<modalProps> = ({ isModal, onClose, title, children }) => {
   return (
     isModal && (
       <div className={s.modal}>
         <div className={s.modal__container}>
-          <div className={s.modal__close} onClick={onFavoriteClose}>
+          <div className={s.modal__close} onClick={onClose}>
             &times;
           </div>
           <Text className={s.title}>{title}</Text>

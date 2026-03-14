@@ -1,0 +1,30 @@
+@use "@styles/variables.scss" as *;
+@use "@styles/mixins" as *;
+
+.category {
+  @include recipeConteiner;
+  padding-top: 80px;
+  padding-bottom: 80px;
+  min-height: auto;
+}
+
+.slot {
+  color: $default-color;
+}
+
+.notRecipes {
+  color: $color-placeholder;
+  @include fz28;
+  @include flexColumnCenter;
+  height: 70vh;
+}
+
+.title {
+  @include title;
+}
+
+.linkCategories {
+  display: flex;
+  justify-content: end;
+  margin-bottom: $margin-bottom;
+}

@@ -20,6 +20,7 @@ export interface RecipeInfoApi {
     id: number;
     name: string;
     amount: number;
+    unit: string;
   }[];
 
   equipments: {
@@ -48,6 +49,7 @@ export interface RecipeInfo {
     id: number;
     name: string;
     amount: number;
+    unit: string;
   }[];
 
   equipments: {

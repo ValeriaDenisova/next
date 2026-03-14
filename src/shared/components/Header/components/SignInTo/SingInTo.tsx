@@ -35,7 +35,7 @@ const SingInTo: React.FC = observer(() => {
           />
           {user.isError && <Text className={s.errorText}>Check the entered data</Text>}
           <Button
-            className={s.singInTo__button}
+            className={`cursor ${s.singInTo__button}`}
             onClick={() => {
               user.entrance(login, password);
               favorites.fetchRecipes();
@@ -44,7 +44,7 @@ const SingInTo: React.FC = observer(() => {
             Log In
           </Button>
           <Button
-            className={s.singInTo__button}
+            className={`cursor ${s.singInTo__button}`}
             onClick={() => {
               setRegister(true);
             }}
@@ -74,9 +74,15 @@ const SingInTo: React.FC = observer(() => {
             type="password"
             disabled={registerResult === true}
           />
-          {registerResult === false && <Text className={s.errorText}>Check the entered data</Text>}
+          {!logIn.isResult && (
+            <Text className={s.errorText}>
+              {logIn.errorText !== undefined
+                ? logIn.errorText.charAt(0).toUpperCase() + logIn.errorText.slice(1)
+                : ""}
+            </Text>
+          )}
           <Button
-            className={s.singInTo__button}
+            className={`cursor ${s.singInTo__button}`}
             disabled={registerResult === true}
             onClick={async () => {
               await logIn.fetchRecipes({
@@ -93,7 +99,7 @@ const SingInTo: React.FC = observer(() => {
             <Text className={s.errorText}>Registration was successful, log in</Text>
           )}
           <Button
-            className={s.singInTo__button}
+            className={`cursor ${s.singInTo__button}`}
             onClick={() => {
               setRegister(false);
               setRegisterResult(undefined);
@@ -106,7 +112,7 @@ const SingInTo: React.FC = observer(() => {
       {user.hasToken && (
         <div className={s.singInTo}>
           <Text className={s.text}>{`${user.userName}, you are logged in`}</Text>
-          <Button className={s.singInTo__button} onClick={user.exit}>
+          <Button className={`cursor ${s.singInTo__button}`} onClick={user.exit}>
             Exit
           </Button>
         </div>

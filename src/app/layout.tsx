@@ -1,4 +1,4 @@
-import { Roboto } from "next/font/google";
+import { Roboto, Aguafina_Script } from "next/font/google";
 import "@styles/index.scss";
 
 const roboto = Roboto({
@@ -7,14 +7,16 @@ const roboto = Roboto({
   display: "swap",
 });
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+const aguafina = Aguafina_Script({
+  subsets: ["latin"],
+  weight: ["400"],
+  display: "swap",
+});
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={`${roboto.className} antialiased`}>{children}</body>
+    <html lang="en" className={`${roboto.className} ${aguafina.className}`}>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }

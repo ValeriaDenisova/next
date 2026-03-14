@@ -12,8 +12,8 @@ export default class ScrollStore {
   prevScrollTop: number = 0;
   total: number = 0;
 
-  private isScroll: boolean = true;
   private scroll: number = 0;
+  private isScroll: boolean = true;
   private _rootStore: RootStore;
 
   constructor(scrollPositionRef: React.RefObject<number>) {
@@ -28,7 +28,18 @@ export default class ScrollStore {
         this.isScroll = false;
         setTimeout(() => {
           this.isScroll = true;
-        }, 1000);
+        }, 200);
+      },
+    );
+
+    reaction(
+      () => this._rootStore.resipes.veg,
+      () => {
+        this.scroll = window.pageYOffset ?? document.documentElement.scrollTop ?? 0;
+        this.isScroll = false;
+        setTimeout(() => {
+          this.isScroll = true;
+        }, 200);
       },
     );
 
@@ -39,12 +50,15 @@ export default class ScrollStore {
         this.isScroll = false;
         setTimeout(() => {
           this.isScroll = true;
-        }, 1000);
+        }, 200);
       },
     );
   }
 
   loadMore = () => {
+    if (this.total <= 9) {
+      this.hasMore = false;
+    }
     if (this.load || !this.hasMore) return;
     if (!this.isScroll) {
       window.scrollTo({ top: this.scroll, left: 0, behavior: "auto" });
@@ -68,6 +82,10 @@ export default class ScrollStore {
       if (scrollTop > this.prevScrollTop) {
         const windowHeight = window.innerHeight;
         const fullHeight = document.documentElement.offsetHeight;
+
+        if (!this.isScroll) {
+          window.scrollTo({ top: this.scroll, left: 0, behavior: "auto" });
+        }
 
         if (scrollTop + windowHeight >= fullHeight - this.BOTTOM) {
           this.total =

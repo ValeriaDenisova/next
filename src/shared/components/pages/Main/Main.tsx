@@ -1,5 +1,5 @@
 import React from "react";
-import MainHeader from "./components/MainHeader";
+import MainHeader from "../../MainHeader";
 import Recipes from "./components/Recipes";
 import { Recipe } from "@entities/api/Recipe";
 import { Categories } from "@entities/api/Categories";
@@ -14,7 +14,7 @@ interface MainProps {
 const Main: React.FC<MainProps> = ({ initialRecipes, initialTotal, initialCategories }) => {
   return (
     <>
-      <MainHeader />
+      <MainHeader title="Recipes" />
       <div className="wrapper">
         <div className={s.main}>
           <Recipes

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import parse from "html-react-parser";
 import RecipeHeader from "./components/RecipeHeader";
@@ -11,6 +11,7 @@ import Loader from "@components/Loader";
 import RecipeInfoStore from "@store/locals/RecipeInfoStore";
 import { useLocalStore } from "@store/hooks/useLocalStore";
 import type { RecipeInfo } from "@entities/api/RecipeInfo";
+import { useRootStore } from "@store/globals/root/RootStore";
 import s from "./Recipe.module.scss";
 
 interface RecipeProps {
@@ -19,17 +20,14 @@ interface RecipeProps {
 }
 const Recipe: React.FC<RecipeProps> = observer(({ id, initialData }) => {
   const info = useLocalStore(() => new RecipeInfoStore(id));
+  const root = useRootStore();
+  const hasToken = Boolean(root.token);
 
   useEffect(() => {
     info.hydrate(initialData);
     return () => {
       if (typeof info.destroy === "function") info.destroy();
     };
-  }, []);
-
-  const [hasToken, setHasToken] = useState(false);
-  useEffect(() => {
-    setHasToken(!!(typeof window !== "undefined" ? localStorage.getItem("token") : null));
   }, []);
 
   return (
@@ -46,7 +44,8 @@ const Recipe: React.FC<RecipeProps> = observer(({ id, initialData }) => {
             loading={info.cleanLoading}
             info={info}
             id={id}
-            hasToken={hasToken}
+            ingradients={info.cleanRecipeInfo?.ingradients}
+            token={hasToken}
           />
           <div className={s.recipe__content}>
             {info.cleanRecipeInfo && (

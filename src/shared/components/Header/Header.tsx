@@ -38,10 +38,10 @@ const Header: React.FC = () => {
           </div>
           <div className={s.header__right}>
             <div className={s.header__entrance}>
-              <div onClick={handleFavoriteOpen}>
+              <div className="cursor" onClick={handleFavoriteOpen}>
                 <Like width="19" height="19" viewBox="0 0 19 19" fill="none" color="secondary" />
               </div>
-              <div onClick={handleEntranceOpen}>
+              <div className="cursor" onClick={handleEntranceOpen}>
                 <Enter width="24" height="24" viewBox="0 0 24 24" fill="none" color="secondary" />
               </div>
             </div>
@@ -53,15 +53,11 @@ const Header: React.FC = () => {
           </div>
         </div>
       </div>
-      <Modal isModal={isFavourite} onFavoriteClose={handleFavoriteClose} title={"Favorite recipes"}>
+      <Modal isModal={isFavourite} onClose={handleFavoriteClose} title={"Favorite recipes"}>
         <FavoriteRecipes onFavoriteClose={handleFavoriteClose} />
       </Modal>
 
-      <Modal
-        isModal={isEntrance}
-        onFavoriteClose={handleEntranceClose}
-        title={"Access Your Account"}
-      >
+      <Modal isModal={isEntrance} onClose={handleEntranceClose} title={"Access Your Account"}>
         {<SingInTo />}
       </Modal>
     </>

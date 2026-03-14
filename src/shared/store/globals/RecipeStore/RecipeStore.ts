@@ -16,6 +16,7 @@ export default class RecipeStore {
   filtersCategoryParam: (string | number)[] = [];
   search: string = "";
   loadedTotal: number | undefined;
+  vegetarian: boolean | undefined;
 
   private _rootStore: IRootStore;
 
@@ -43,6 +44,13 @@ export default class RecipeStore {
 
     reaction(
       () => this.filtersCategoryParam,
+      () => {
+        this.pageSize = PAGE_SIZE;
+      },
+    );
+
+    reaction(
+      () => this.vegetarian,
       () => {
         this.pageSize = PAGE_SIZE;
       },
@@ -101,6 +109,7 @@ export default class RecipeStore {
             name: {
               $containsi: this.search,
             },
+            vegetarian: { $eq: this.vegetarian },
           },
         },
       });
@@ -142,7 +151,6 @@ export default class RecipeStore {
   }
 
   get getTotal(): number {
-    console.log(this.totalPage);
     return this.totalPage ? this.totalPage : 0;
   }
 
@@ -164,6 +172,17 @@ export default class RecipeStore {
     this.paramSearch();
   }
 
+  setVegetarian(veg: boolean) {
+    if (veg) {
+      this.vegetarian = veg;
+    } else {
+      this.vegetarian = undefined;
+    }
+  }
+
+  get veg(): boolean | undefined {
+    return this.vegetarian;
+  }
   get getPage() {
     return this.page;
   }
@@ -203,6 +222,6 @@ export default class RecipeStore {
 
   get _depsKey(): string {
     const filters = this.filtersCategoryParam.join(",");
-    return `${this.page}|${this.pageSize}|${this.search}|${filters}`;
+    return `${this.page}|${this.pageSize}|${this.search}|${filters}|${this.vegetarian}`;
   }
 }

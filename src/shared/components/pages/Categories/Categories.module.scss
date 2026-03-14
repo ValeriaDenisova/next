@@ -1,0 +1,21 @@
+@use "@styles/mixins" as *;
+
+.categories {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px;
+  padding-top: 60px;
+  padding-bottom: 40px;
+
+  @include respondToMedium {
+    grid-template-columns: 1fr 1fr;
+  }
+  @include respondToSmall {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}
+
+.title {
+  @include title;
+}

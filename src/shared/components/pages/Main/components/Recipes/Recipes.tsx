@@ -6,6 +6,7 @@ import Filter from "../Filter";
 import Products from "../Products";
 import { Recipe } from "@entities/api/Recipe";
 import { Categories } from "@entities/api/Categories";
+import RecipeDay from "../RecipeDay";
 import s from "./Recipes.module.scss";
 
 interface RecipesProps {
@@ -19,6 +20,7 @@ const Recipes: React.FC<RecipesProps> = ({ initialRecipes, initialTotal, initial
   const categoriesStore = useCategoriesStore();
   const hydrated = useRef(false);
 
+  // eslint-disable-next-line
   if (!hydrated.current) {
     recipeStore.hydrate(initialRecipes, initialTotal);
     categoriesStore.hydrate(initialCategories);
@@ -36,6 +38,7 @@ const Recipes: React.FC<RecipesProps> = ({ initialRecipes, initialTotal, initial
         }
       />
       <Filter />
+      <RecipeDay total={initialTotal} />
       <Products />
     </div>
   );

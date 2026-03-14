@@ -27,7 +27,7 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
-      className={`${buttonClass} ${isLoadingSearch ? s.button__padded : ""}`}
+      className={`${buttonClass} ${isLoadingSearch ? s.button__padded : ""} cursor`}
       disabled={isDisabled}
       {...rest}
     >

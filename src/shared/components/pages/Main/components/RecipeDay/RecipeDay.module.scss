@@ -1,0 +1,79 @@
+@use "@styles/variables.scss" as *;
+@use "@styles/mixins" as *;
+
+.recipeDay {
+  @include displayFlexAlignCenterSB;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  gap: 20px;
+  @include respondToSmall {
+    flex-direction: column;
+  }
+}
+
+.recipeDay__text {
+  @include normal400;
+  @include fz40;
+  @include respondToSmall {
+    @include fz28;
+  }
+}
+
+.modal__info {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: 30px;
+  @include respondToMedium {
+    grid-template-columns: 1fr;
+  }
+}
+
+.modal__img {
+  position: relative;
+  height: 400px;
+}
+
+.img {
+  border-radius: $border-radius;
+}
+
+.title {
+  @include fz40;
+  margin-bottom: 20px;
+}
+
+.summary {
+  @include fz20;
+  margin-bottom: 40px;
+}
+
+.kcal {
+  @include fz32;
+  color: $default-color;
+}
+
+.button {
+  width: 100%;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  min-height: 90%;
+  gap: 30px;
+}
+
+.modal__button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.modal__link {
+  display: inline-block;
+  width: 80%;
+  margin: 0 auto;
+  @include respondToSmall {
+    width: 100%;
+  }
+}

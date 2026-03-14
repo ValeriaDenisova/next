@@ -14,10 +14,12 @@
 
 .category {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
 
-  @include respondToExtraSmall {
-    display: block;
+  @include respondToSmall {
+    flex-direction: column;
+    gap: 10px;
   }
 }
 
@@ -30,4 +32,12 @@
 .categoriesFilter__slot {
   display: flex;
   gap: 10px;
+}
+
+.vegetarian {
+  @include categoriesTitle;
+}
+
+.active {
+  @include categoriesActive;
 }

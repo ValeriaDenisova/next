@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { fetchRecipeById } from "@/shared/api/fetch";
+import { fetchRecipeById } from "@api/fetch";
 import { normalizeRecipeInfo } from "@entities/api/RecipeInfo";
 import Recipe from "@components/pages/Recipe";
 

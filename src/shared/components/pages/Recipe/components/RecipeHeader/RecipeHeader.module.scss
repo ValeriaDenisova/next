@@ -13,6 +13,7 @@
 .resipeHeader {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   @include respondToSmall {
     display: block;
     margin-bottom: 37px;
@@ -21,6 +22,7 @@
 
 .resipeHeader__button {
   width: 190px;
+  flex: 0 0 auto;
   @include respondToSmall {
     width: 100%;
   }
@@ -46,4 +48,53 @@
 
 .back {
   @include respondToNone155;
+}
+
+.burron {
+  display: flex;
+  gap: 20px;
+}
+
+.numberPeople {
+  @include fz20;
+}
+
+.input {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.ingradientsText {
+  @include fz28;
+}
+
+.ingradients {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 50px;
+}
+.modal__button {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.ordered__text {
+  @include fz28;
+}
+
+.ordered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 50px;
+  min-height: 60vh;
+}
+
+.order__button {
+  margin-top: 40px;
 }

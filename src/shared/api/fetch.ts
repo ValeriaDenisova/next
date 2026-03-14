@@ -45,3 +45,19 @@ export async function fetchRecipeById(id: string) {
   if (!res.ok) return null;
   return res.json();
 }
+
+export async function fetchRecipesСategory(params: { categoryIds?: string | number | undefined }) {
+  const query = stringify({
+    populate: "images",
+    filters: {
+      category: { id: { $eq: params.categoryIds ?? [] } },
+    },
+  });
+
+  const res = await fetch(`${API_BASE_URL}/recipes?${query}`, {
+    next: { revalidate: 60 },
+  });
+
+  if (!res.ok) throw new Error(`Recipes fetch failed: ${res.status}`);
+  return res.json();
+}
