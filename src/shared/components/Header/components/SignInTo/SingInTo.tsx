@@ -44,7 +44,7 @@ const SingInTo: React.FC = observer(() => {
             Log In
           </Button>
           <Button
-            className={`cursor ${s.singInTo__button}`}
+            className={`cursor ${s.singInTo__button} ${s.register}`}
             onClick={() => {
               setRegister(true);
             }}
@@ -96,10 +96,10 @@ const SingInTo: React.FC = observer(() => {
             Register
           </Button>
           {registerResult === true && (
-            <Text className={s.errorText}>Registration was successful, log in</Text>
+            <Text className={s.yesText}>Registration was successful, log in</Text>
           )}
           <Button
-            className={`cursor ${s.singInTo__button}`}
+            className={`cursor ${s.singInTo__button} ${s.register}`}
             onClick={() => {
               setRegister(false);
               setRegisterResult(undefined);
