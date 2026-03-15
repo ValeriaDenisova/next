@@ -1,4 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
 import type { Metadata } from "next";
 import { fetchCategories } from "@api/fetch";
 import { normalizeCategories } from "@entities/api/Categories";

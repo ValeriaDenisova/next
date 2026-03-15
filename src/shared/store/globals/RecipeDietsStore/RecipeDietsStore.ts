@@ -60,6 +60,9 @@ export default class RecipeDietsStope {
     }
   }
 
+  get getLoading(): boolean {
+    return this.loading;
+  }
   get getRecipes(): RecipeDiets[] {
     return toJS(this.recipes);
     // return [

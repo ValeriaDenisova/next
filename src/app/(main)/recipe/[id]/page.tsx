@@ -6,7 +6,6 @@ import Recipe from "@components/pages/Recipe";
 
 type Props = { params: Promise<{ id: string }> };
 
-// eslint-disable-next-line react-refresh/only-export-components
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const json = await fetchRecipeById(id);

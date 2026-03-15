@@ -7,6 +7,7 @@ import { DIETS, NATIONAL_CUISINES } from "@constants/constants";
 import { useRecipeDietsStore } from "@store/hooks/globalStores";
 import MainHeader from "../../MainHeader";
 import s from "./Diets.module.scss";
+import Loader from "../../Loader";
 
 const Diets: React.FC = observer(() => {
   const recipes = useRecipeDietsStore();
@@ -72,6 +73,14 @@ const Diets: React.FC = observer(() => {
                         </div>
                       );
                     })}
+                    {recipeCategory.length === 0 && !recipes.getLoading && (
+                      <Text className={s.categoryNull}>There are no recipes in this category</Text>
+                    )}
+                    {recipes.getLoading && (
+                      <div className={s.loader}>
+                        <Loader className={s.loader__svg} />
+                      </div>
+                    )}
                   </div>
                 </>
               )}

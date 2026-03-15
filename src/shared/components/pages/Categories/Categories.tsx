@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import type { Categories } from "@entities/api/Categories";
 import CategoriesTitle from "./components/CategoriesTitle";
 import Link from "next/link";
@@ -21,7 +22,10 @@ const Categories: React.FC<CategoriesProps> = ({ initialCategories }) => {
               key={c.id}
               style={{ textDecoration: "none" }}
             >
-              <CategoriesTitle title={c.title} />
+              <div className={s.link}>
+                <Image className={s.img} src={c.image} alt="" width={200} height={100} />
+                <CategoriesTitle title={c.title} />
+              </div>
             </Link>
           ))}
         </div>

@@ -21,7 +21,6 @@ const Filter: React.FC = observer(() => {
 
   const [categoriesFilter, setCategoriesFilter] = React.useState<Option[]>([]);
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
-  const [checkFilter, setCheckFilter] = useState<boolean>(false);
   const [searchCheck, setSearchCheck] = useState<boolean>(true);
   const [veg, setVeg] = useState<boolean>(false);
 
@@ -33,34 +32,11 @@ const Filter: React.FC = observer(() => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const params = new URLSearchParams(window.location.search);
-      const categoriesJSON = params.get("category");
-      const searchRaw = params.get("search");
-
-      if (categoriesJSON) {
-        try {
-          const categoriesFromUrl = JSON.parse(decodeURIComponent(categoriesJSON));
-          setCategoriesFilter(categoriesFromUrl);
-          setCheckFilter(true);
-        } catch (e) {
-          console.error("Ошибка при разборе категорий из URL", e);
-        }
-      } else {
-        setCheckFilter(true);
-      }
-
-      if (searchRaw) {
-        try {
-          setTempSearch(decodeURIComponent(searchRaw));
-        } catch (e) {
-          console.error("Ошибка при разборе search из URL", e);
-        }
-      }
-
-      const vegetarianParam = params.get("vegetarian");
-      if (vegetarianParam !== null) {
-        setVeg(vegetarianParam === "true");
-      }
+      const urlParams = new URLSearchParams(window.location.search);
+      resipes.initializeFromUrlParams(urlParams);
+      setTempSearch(resipes.getSearch);
+      setCategoriesFilter(resipes.filtersCategory ?? []);
+      setVeg(!!resipes.veg);
     }
   }, []);
 
@@ -86,15 +62,21 @@ const Filter: React.FC = observer(() => {
       if (categoriesFilter.length > 0) {
         const jsonString = encodeURIComponent(JSON.stringify(categoriesFilter));
         params.set("category", jsonString);
-      } else if (checkFilter) {
+      } else {
         params.delete("category");
       }
       window.history.replaceState(null, "", `?${params.toString()}`);
     }
-  }, [categoriesFilter, checkFilter]);
+  }, [categoriesFilter]);
 
   useEffect(() => {
-    resipes.setFiltersCategory(categoriesFilter);
+    const t = setTimeout(() => {
+      resipes.setFiltersCategory(categoriesFilter);
+    }, 500);
+
+    return () => {
+      clearTimeout(t);
+    };
   }, [categoriesFilter]);
 
   useEffect(() => {
@@ -120,23 +102,19 @@ const Filter: React.FC = observer(() => {
               resipes.setSearch(value);
             }}
             afterSlot={
-              <Clear
-                width="24px"
-                height="24px"
-                viewBox="0 0 16 16"
-                version="1.1"
-                fill="none"
-                color="primary"
-                stroke="#afadb5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="1.5"
-                className="cursor"
-                onClick={() => {
-                  setTempSearch("");
-                  resipes.setSearch("");
-                }}
-              />
+              tempSearch && (
+                <Clear
+                  width="24px"
+                  height="24px"
+                  viewBox="0 0 16 16"
+                  stroke="#afadb5"
+                  className="cursor"
+                  onClick={() => {
+                    setTempSearch("");
+                    resipes.setSearch("");
+                  }}
+                />
+              )
             }
           />
         </div>
@@ -162,22 +140,18 @@ const Filter: React.FC = observer(() => {
           value={categoriesFilter}
           afterSlot={
             <div className={s.categoriesFilter__slot}>
-              <Clear
-                width="24px"
-                height="24px"
-                viewBox="0 0 16 16"
-                version="1.1"
-                fill="none"
-                color="primary"
-                stroke="#afadb5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="cursor"
-                strokeWidth="1.5"
-                onClick={() => {
-                  setCategoriesFilter([]);
-                }}
-              />
+              {categoriesFilter.length > 0 && (
+                <Clear
+                  width="24px"
+                  height="24px"
+                  viewBox="0 0 16 16"
+                  stroke="#afadb5"
+                  className="cursor"
+                  onClick={() => {
+                    setCategoriesFilter([]);
+                  }}
+                />
+              )}
               <Slot
                 width="24"
                 height="24"

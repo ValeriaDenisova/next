@@ -16,41 +16,47 @@ export default class ScrollStore {
   private isScroll: boolean = true;
   private _rootStore: RootStore;
 
+  private _lastWheelTime: number = 0;
+  private _handleWheel = () => {
+    this._lastWheelTime = performance.now();
+  };
+
   constructor(scrollPositionRef: React.RefObject<number>) {
     this.scrollPositionRef = scrollPositionRef;
     window.addEventListener("scroll", this.handleScroll);
+    window.addEventListener("wheel", this._handleWheel, { passive: true });
     this._rootStore = rootStore;
 
     reaction(
       () => this._rootStore.resipes.getFiltersCategoryParam,
       () => {
-        this.scroll = window.pageYOffset ?? document.documentElement.scrollTop ?? 0;
         this.isScroll = false;
+        this.scroll = window.pageYOffset ?? document.documentElement.scrollTop ?? 0;
         setTimeout(() => {
           this.isScroll = true;
-        }, 200);
+        }, 500);
       },
     );
 
     reaction(
       () => this._rootStore.resipes.veg,
       () => {
-        this.scroll = window.pageYOffset ?? document.documentElement.scrollTop ?? 0;
         this.isScroll = false;
+        this.scroll = window.pageYOffset ?? document.documentElement.scrollTop ?? 0;
         setTimeout(() => {
           this.isScroll = true;
-        }, 200);
+        }, 500);
       },
     );
 
     reaction(
       () => this._rootStore.resipes.getSearch,
       () => {
-        this.scroll = window.pageYOffset ?? document.documentElement.scrollTop ?? 0;
         this.isScroll = false;
+        this.scroll = window.pageYOffset ?? document.documentElement.scrollTop ?? 0;
         setTimeout(() => {
           this.isScroll = true;
-        }, 200);
+        }, 500);
       },
     );
   }
@@ -60,8 +66,13 @@ export default class ScrollStore {
       this.hasMore = false;
     }
     if (this.load || !this.hasMore) return;
+
     if (!this.isScroll) {
-      window.scrollTo({ top: this.scroll, left: 0, behavior: "auto" });
+      const sinceWheel = performance.now() - this._lastWheelTime;
+      if (sinceWheel > 250) {
+        window.scrollTo({ top: this.scroll, left: 0, behavior: "auto" });
+        return;
+      }
     }
 
     this.scrollPositionRef.current = window.pageYOffset || document.documentElement.scrollTop;
@@ -77,16 +88,18 @@ export default class ScrollStore {
 
   handleScroll = () => {
     runInAction(() => {
+      if (!this.isScroll) {
+        const sinceWheel = performance.now() - this._lastWheelTime;
+        if (sinceWheel > 250) {
+          window.scrollTo({ top: this.scroll, left: 0, behavior: "auto" });
+          return;
+        }
+      }
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
       if (scrollTop > this.prevScrollTop) {
         const windowHeight = window.innerHeight;
         const fullHeight = document.documentElement.offsetHeight;
-
-        if (!this.isScroll) {
-          window.scrollTo({ top: this.scroll, left: 0, behavior: "auto" });
-        }
-
         if (scrollTop + windowHeight >= fullHeight - this.BOTTOM) {
           this.total =
             this._rootStore.resipes.total && this._rootStore.resipes.total > 0

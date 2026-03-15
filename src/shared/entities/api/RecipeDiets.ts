@@ -11,7 +11,6 @@ export interface RecipeDiets {
 }
 
 export const normalizeRecipeDiets = (from: RecipeDietsApi[]): RecipeDiets[] => {
-  console.log(from);
   return from.map((item) => ({
     id: item.id,
     image: item.image,

@@ -1,9 +1,11 @@
 @use "@styles/mixins" as *;
+@use "@styles/variables.scss" as *;
 
 .categories {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 30px;
+  row-gap: 50px;
   padding-top: 60px;
   padding-bottom: 40px;
 
@@ -12,10 +14,21 @@
   }
   @include respondToSmall {
     grid-template-columns: 1fr;
-    gap: 15px;
+    gap: 60px;
   }
 }
 
 .title {
   @include title;
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.img {
+  border-radius: $border-radius;
+  margin: 0 auto;
 }

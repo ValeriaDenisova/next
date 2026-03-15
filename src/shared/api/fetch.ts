@@ -25,7 +25,10 @@ export async function fetchRecipes(params: {
 }
 
 export async function fetchCategories() {
-  const res = await fetch(`${API_BASE_URL}/meal-categories`, {
+  const query = stringify({
+    populate: "image",
+  });
+  const res = await fetch(`${API_BASE_URL}/meal-categories?${query}`, {
     next: { revalidate: 600 },
   });
 
@@ -46,7 +49,7 @@ export async function fetchRecipeById(id: string) {
   return res.json();
 }
 
-export async function fetchRecipesСategory(params: { categoryIds?: string | number | undefined }) {
+export async function fetchRecipesCategory(params: { categoryIds?: string | number | undefined }) {
   const query = stringify({
     populate: "images",
     filters: {

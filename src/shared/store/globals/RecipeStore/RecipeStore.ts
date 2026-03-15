@@ -79,6 +79,13 @@ export default class RecipeStore {
         console.error("Ошибка при разборе категорий из URL", e);
       }
     }
+
+    const vegetarianParam = searchParams.get("vegetarian");
+    if (vegetarianParam !== null) {
+      this.setVegetarian(vegetarianParam === "true");
+    }
+
+    this.fetchRecipes();
   }
 
   async fetchRecipes() {
