@@ -53,6 +53,9 @@
 .burron {
   display: flex;
   gap: 20px;
+  @include respondToSmall {
+    flex-direction: column;
+  }
 }
 
 .numberPeople {
