@@ -1,0 +1,33 @@
+@use "@styles/variables.scss" as *;
+@use "@styles/mixins" as *;
+
+.recipe {
+  padding-top: 49px;
+  padding-bottom: 53px;
+}
+
+.recipe__content {
+  @include flexColumn;
+  gap: $flex-gap;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  margin-top: 150px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.loader__svg {
+  display: inline-block;
+  animation: spin 1s linear infinite;
+}

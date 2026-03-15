@@ -1,0 +1,9 @@
+.ingredientsEquipmentElement {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.ingredientsEquipmentElement > :first-child {
+  flex-shrink: 0;
+}

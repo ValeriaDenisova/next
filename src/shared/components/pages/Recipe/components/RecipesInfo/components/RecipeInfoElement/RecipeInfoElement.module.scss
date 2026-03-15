@@ -1,0 +1,18 @@
+@use "@styles/variables.scss" as *;
+@use "@styles/mixins" as *;
+
+.recipeInfoElement {
+  @include displayFlexAlignCenterColumn;
+  gap: 8px;
+}
+
+.title {
+  @include normal400-fz16;
+  color: $color-black;
+}
+
+.info {
+  @include normal600;
+  @include fz16;
+  color: $default-color;
+}

@@ -1,0 +1,24 @@
+@use "@styles/mixins" as *;
+
+.singInTo {
+  @include flexColumnCenter;
+  min-height: 70%;
+  gap: 20px;
+  text-align: center;
+}
+
+.singInTo__input {
+  width: 80%;
+}
+
+.singInTo__button {
+  width: 80%;
+}
+
+.errorText {
+  color: red;
+}
+
+.text {
+  @include fz28;
+}

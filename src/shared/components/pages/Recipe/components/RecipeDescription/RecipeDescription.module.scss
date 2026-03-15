@@ -1,0 +1,10 @@
+@use "@styles/variables.scss" as *;
+@use "@styles/mixins" as *;
+
+.recipeDescription {
+  @include normal400-fz16;
+  padding: 36px;
+  background: rgba(181, 70, 15, 0.33);
+  border-radius: $border-radius;
+  color: $color-black;
+}

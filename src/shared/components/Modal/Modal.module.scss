@@ -1,0 +1,65 @@
+@use "@styles/variables.scss" as *;
+@use "@styles/mixins" as *;
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  @include displayFlexAlignCenterJCcenter;
+}
+
+.modal__container {
+  width: 80%;
+  height: 80%;
+  background-color: #fff0df;
+  position: relative;
+  padding: 40px;
+  padding-bottom: 60px;
+  overflow-y: auto;
+  border-radius: $border-radius;
+
+  @include scroll;
+
+  @include respondToSmall {
+    width: 90%;
+    padding: 20px;
+    padding-bottom: 40px;
+    padding-top: 40px;
+  }
+}
+
+.modal__close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  @include displayFlexAlignCenterJCcenter;
+
+  font-size: 48px;
+  color: $color-burger;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: color 0.2s;
+
+  @include respondToSmall {
+    top: 10px;
+    right: 10px;
+    font-size: 32px;
+    width: auto;
+    height: auto;
+  }
+}
+
+.title {
+  @include normal700;
+  @include fz40;
+  color: $color-black;
+  margin-bottom: 20px;
+}

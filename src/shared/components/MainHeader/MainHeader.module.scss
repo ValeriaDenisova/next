@@ -1,0 +1,43 @@
+@use "@styles/mixins" as *;
+
+.mainHeader {
+  width: 100%;
+  height: 572px;
+  background-color: rgb(202, 123, 123);
+  position: relative;
+
+  @include respondToSmall {
+    height: 400px;
+  }
+
+  @include respondToExtraSmall {
+    height: 200px;
+  }
+}
+
+.title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 40px;
+}
+
+.mainHeader__img {
+  @include positionImg;
+}
+
+.title__svg {
+  @include respondToExtraSmall {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+}
+
+.text {
+  font-family: "Aguafina Script", cursive;
+  font-weight: 400;
+  font-style: normal;
+  color: #ccc;
+  font-size: 120px;
+}

@@ -1,0 +1,47 @@
+@use "@styles/mixins" as *;
+
+.favoriteRecipes {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+
+  @include respondToMedium {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @include respondToSmall {
+    grid-template-columns: 1fr;
+  }
+}
+
+.favorite__text {
+  text-align: center;
+  margin-top: 80px;
+  @include fz28;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100% - 60px);
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.loader__svg {
+  display: inline-block;
+  animation: spin 1s linear infinite;
+}
+
+.notLike {
+  text-align: center;
+  margin-top: 80px;
+  @include fz28;
+}

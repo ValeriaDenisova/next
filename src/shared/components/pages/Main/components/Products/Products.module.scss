@@ -1,0 +1,54 @@
+@use "@styles/variables.scss" as *;
+@use "@styles/mixins" as *;
+
+.ProductsElements {
+  @include recipeConteiner;
+}
+
+.ProductsElementsNull {
+  grid-template-columns: 1fr;
+  padding-top: 100px;
+  @include respondToSmall {
+    padding-top: 50px;
+  }
+}
+
+.recipesNull {
+  text-align: center;
+  color: $color-placeholder;
+  @include fz44;
+}
+
+.slot {
+  color: $default-color;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.loader__svg {
+  display: inline-block;
+  animation: spin 1s linear infinite;
+}
+
+.arrayTop {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  cursor: pointer;
+  @include respondToSmall {
+    bottom: 20px;
+    right: 20px;
+  }
+}

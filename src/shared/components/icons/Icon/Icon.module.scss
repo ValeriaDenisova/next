@@ -1,0 +1,13 @@
+@use "@styles/variables" as *;
+
+.icon {
+  color: inherit;
+}
+
+.icon--color-primary {
+  color: $color-placeholder;
+}
+
+.icon--color-secondary {
+  color: $default-color;
+}

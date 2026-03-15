@@ -1,0 +1,9 @@
+@use "@styles/mixins" as *;
+
+.directions {
+  max-width: 700px;
+}
+
+.stenContant {
+  @include flexColumn;
+}

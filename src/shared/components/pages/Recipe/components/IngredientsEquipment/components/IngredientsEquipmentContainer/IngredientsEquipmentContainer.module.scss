@@ -1,0 +1,29 @@
+@use "@styles/variables.scss" as *;
+@use "@styles/mixins" as *;
+
+.content {
+  display: grid;
+  grid-template-columns: auto auto;
+  row-gap: 10px;
+  column-gap: 20px;
+
+  @include respondToMedium {
+    grid-template-columns: auto auto;
+  }
+
+  @include respondToSmall {
+    grid-template-columns: auto auto;
+  }
+
+  @include respondToExtraSmall {
+    grid-template-columns: auto;
+  }
+}
+
+.ingredientsContainer {
+  width: auto;
+
+  @include respondToSmall {
+    width: 100% !important;
+  }
+}
