@@ -1,37 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Клонирование репозитория
 
-## Getting Started
-
-First, run the development server:
+Для начала склонируйте проект:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/ValeriaDenisova/react_dates.git
+cd react_dates
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Установите зависимости
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## с npm
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+npm install
 
-## Learn More
+## с yarn
 
-To learn more about Next.js, take a look at the following resources:
+yarn install
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Запустите в режиме разработки
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## с npm
 
-## Deploy on Vercel
+npm start
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## с yarn
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# next
+yarn start
+
+# Сборка проекта
+
+## с npm
+
+npm run build
+
+## с yarn
+
+yarn build
