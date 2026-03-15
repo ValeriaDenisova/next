@@ -34,7 +34,7 @@ const Header: React.FC = () => {
               </div>
               <Text className={s.logo__text}>Food Client</Text>
             </div>
-            <Menu isOpen={isMenuOpen} />
+            <Menu isOpen={isMenuOpen} onClose={toggleMenu} />
           </div>
           <div className={s.header__right}>
             <div className={s.header__entrance}>
