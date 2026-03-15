@@ -41,22 +41,16 @@ export const handleTitle = (category: Option[]) => {
 };
 
 export function smoothScrollTo(targetTop: number, opts: SmoothScrollOptions = {}) {
-  const {
-    container = window,
-    duration = 400,
-    maxDuration = 2000,
-    threshold = 0.6,
-    stableFrames = 4,
-    onDone,
-  } = opts;
+  const { container = window, duration = 450, maxDuration = 2500, onDone } = opts;
 
   const isWindow = container === window;
   const el = isWindow ? document.documentElement || document.body : (container as HTMLElement);
 
   const getScroll = () =>
     isWindow
-      ? window.scrollY || document.documentElement.scrollTop || 0
+      ? window.scrollY || (document.documentElement && document.documentElement.scrollTop) || 0
       : (el as HTMLElement).scrollTop;
+
   const setScroll = (v: number) => {
     if (isWindow) {
       window.scrollTo({ top: v, behavior: "auto" });
@@ -64,69 +58,64 @@ export function smoothScrollTo(targetTop: number, opts: SmoothScrollOptions = {}
       (el as HTMLElement).scrollTop = v;
     }
   };
-  const getScrollHeight = () =>
-    isWindow
-      ? document.documentElement.scrollHeight || document.body.scrollHeight
-      : (el as HTMLElement).scrollHeight;
 
-  let ro: ResizeObserver | null = null;
-  let resizedFlag = false;
-  try {
-    ro = new ResizeObserver(() => {
-      resizedFlag = true;
-    });
-    ro.observe(isWindow ? document.documentElement || document.body : (el as HTMLElement));
-  } catch {
-    ro = null;
-  }
+  const startScroll = getScroll();
+  const distance = targetTop - startScroll;
 
-  const startTime = performance.now();
-  let lastTime = startTime;
-  let stableCount = 0;
-  let lastHeight = getScrollHeight();
+  let rafId = 0;
+  let startTime: number | null = null;
+  let cancelled = false;
 
-  function step(now: number) {
-    const dt = Math.max(1, now - lastTime);
-    lastTime = now;
+  const onUserScroll = () => {
+    cancelled = true;
+    if (rafId) cancelAnimationFrame(rafId);
+    removeListeners();
+  };
 
-    const current = getScroll();
-    const remaining = targetTop - current;
-
-    const alpha = 1 - Math.pow(0.001, dt / Math.max(16, duration));
-    const next = current + remaining * alpha;
-
-    setScroll(next);
-
-    const curHeight = getScrollHeight();
-    const heightChanged = Math.abs(curHeight - lastHeight) > 1;
-    if (heightChanged || resizedFlag) {
-      stableCount = 0;
-      resizedFlag = false;
-      lastHeight = curHeight;
+  const addListeners = () => {
+    if (container === window) {
+      window.addEventListener("wheel", onUserScroll, { passive: true });
     } else {
-      if (Math.abs(targetTop - next) <= threshold) {
-        stableCount++;
-      } else {
-        stableCount = 0;
-      }
+      (container as HTMLElement).addEventListener("wheel", onUserScroll, { passive: true });
     }
+    window.addEventListener("touchstart", onUserScroll, { passive: true });
+    window.addEventListener("keydown", onUserScroll, { passive: true });
+  };
 
-    const elapsed = now - startTime;
-    const doneByPos = Math.abs(targetTop - next) <= threshold;
-    const doneByStable = stableCount >= stableFrames;
-    const doneByTimeout = elapsed >= maxDuration;
+  const removeListeners = () => {
+    if (container === window) {
+      window.removeEventListener("wheel", onUserScroll);
+    } else {
+      (container as HTMLElement).removeEventListener("wheel", onUserScroll);
+    }
+    window.removeEventListener("touchstart", onUserScroll);
+    window.removeEventListener("keydown", onUserScroll);
+  };
 
-    if ((doneByPos && doneByStable) || doneByTimeout) {
+  addListeners();
+
+  const step = (now: number) => {
+    if (startTime == null) startTime = now;
+    const t = Math.min(1, (now - startTime) / duration);
+    const eased = 1 - Math.pow(1 - t, 3);
+    const value = startScroll + distance * eased;
+
+    setScroll(value);
+
+    const nearEnd = Math.abs(targetTop - value) < 0.5;
+    const elapsed = now - (startTime ?? now);
+
+    if (nearEnd || t >= 1 || elapsed >= maxDuration || cancelled) {
       setScroll(targetTop);
-      ro?.disconnect();
+      removeListeners();
       onDone?.();
       return;
     }
 
-    requestAnimationFrame(step);
-  }
+    rafId = requestAnimationFrame(step);
+  };
 
-  requestAnimationFrame(step);
+  rafId = requestAnimationFrame(step);
 }
 
 export async function resolveParamsId(params: unknown): Promise<string> {
