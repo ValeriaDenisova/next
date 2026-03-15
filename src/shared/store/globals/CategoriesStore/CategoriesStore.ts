@@ -3,7 +3,7 @@ import { normalizeCategories, type CategoriesApi, type Categories } from "@entit
 import type { IRootStore } from "../root/RootStore";
 
 export default class CategoriesStore {
-  categories: CategoriesApi[] = [];
+  categories: Categories[] = [];
   loading: boolean = false;
   error: string | null = null;
 
@@ -51,7 +51,7 @@ export default class CategoriesStore {
     }
   }
 
-  hydrate(categories: CategoriesApi[]) {
+  hydrate(categories: Categories[]) {
     this.categories = categories;
     this.loading = false;
   }
