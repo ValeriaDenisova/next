@@ -3,8 +3,8 @@
 Для начала склонируйте проект:
 
 ```bash
-git clone https://github.com/ValeriaDenisova/react_dates.git
-cd react_dates
+git clone https://github.com/ValeriaDenisova/next.git
+cd next
 ```
 
 # Установите зависимости
