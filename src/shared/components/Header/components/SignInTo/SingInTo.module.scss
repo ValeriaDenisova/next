@@ -22,3 +22,11 @@
 .text {
   @include fz28;
 }
+
+.yesText {
+  color: green;
+}
+
+.register{
+  background-color: rgba(181, 70, 15, 0.6);
+}
